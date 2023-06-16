@@ -12,8 +12,6 @@ import {
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { catchError } from 'rxjs';
-import { NOTFOUND } from 'dns';
 
 @Controller('categories')
 export class CategoriesController {
@@ -53,6 +51,10 @@ export class CategoriesController {
   @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.categoriesService.remove(id);
+    try {
+      return this.categoriesService.remove(id);
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 }

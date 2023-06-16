@@ -1,11 +1,11 @@
 type CategoryProps = {
-  id: string;
+  id?: string;
   name: string;
   enable: boolean;
   show_menu: boolean;
 };
 export class Category {
-  id: string;
+  id?: string;
   name: string;
   enable: boolean;
   show_menu: boolean;

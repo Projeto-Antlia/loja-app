@@ -1,31 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
-import { randomUUID } from 'crypto';
+import { CategoryRepository } from './repository/category.repository';
 
 @Injectable()
 export class CategoriesService {
-  categories: Category[] = [];
+  constructor(
+    @Inject('CategoryRepository')
+    private readonly categoryRepository: CategoryRepository,
+  ) {}
 
   create(createCategoryDto: CreateCategoryDto) {
     const category = new Category({
-      id: randomUUID(),
       name: createCategoryDto.name,
       enable: createCategoryDto.enable,
       show_menu: createCategoryDto.show_menu,
     });
 
-    this.categories.push(category);
-    return category;
+    return this.categoryRepository.create(category);
   }
 
   findAll(): Category[] {
-    return this.categories;
+    return this.categoryRepository.findAll();
   }
 
   findOne(id: string) {
-    const category = this.categories.find((item) => item.id === id);
+    const category = this.categoryRepository.findById(id);
     if (!category) {
       throw new Error('Category not found');
     }
@@ -33,24 +34,14 @@ export class CategoriesService {
   }
 
   update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    //verificar se existe
-    // se não existir: lançar erro
-    // se existir atualiza
-    // retorna o objeto atualizado
     const category = this.findOne(id);
-
     category.enable = updateCategoryDto.enable;
     category.show_menu = updateCategoryDto.show_menu;
-
-    this.categories.forEach((cat, i) => {
-      if (cat.id === category.id) {
-        this.categories[i] = category;
-      }
-    });
-    return category;
+    return this.categoryRepository.update(category);
   }
 
   remove(id: string) {
-    this.categories = this.categories.filter((cat) => cat.id !== id);
+    this.findOne(id);
+    this.categoryRepository.remove(id);
   }
 }
