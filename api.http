@@ -1,0 +1,30 @@
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/categories/
+
+###
+GET http://localhost:3000/categories/fd6bea84-8ec3-40fb-88ec-ce5f2b11ed19
+
+
+###
+POST http://localhost:3000/categories/
+Content-Type: application/json
+
+{
+    "name":"BEBIDA",
+    "enable":false,
+    "show_menu":false
+}
+
+###
+PATCH http://localhost:3000/categories/fd56bea84-8ec3-40fb-88ec-ce5f2b11ed19
+Content-Type: application/json
+
+{
+    "enable":true,
+    "show_menu":false
+}
+
+###
+DELETE  http://localhost:3000/categories/64ef5d33-3bbb-404a-8ed9-730df7790770
