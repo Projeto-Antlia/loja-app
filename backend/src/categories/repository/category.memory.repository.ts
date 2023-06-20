@@ -5,34 +5,36 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CategoryRepositoryMemory implements CategoryRepository {
-  categories: Category[] = [];
+  static categories: Category[] = [];
+
   create(category: Category): Category {
     category.id = randomUUID();
-    this.categories.push(category);
+    CategoryRepositoryMemory.categories.push(category);
     return category;
   }
 
   findAll(): Category[] {
-    return this.categories;
+    return CategoryRepositoryMemory.categories;
   }
 
   findById(id: string): Category | undefined {
-    return this.categories.find((item) => item.id === id);
+    return CategoryRepositoryMemory.categories.find((item) => item.id === id);
   }
 
   update(category: Category): Category {
     if (!category || !category.id) {
       throw new Error("ID's required");
     }
-    this.categories.forEach((cat, i) => {
+    CategoryRepositoryMemory.categories.forEach((cat, i) => {
       if (cat.id === category.id) {
-        this.categories[i] = category;
+        CategoryRepositoryMemory.categories[i] = category;
       }
     });
     return category;
   }
 
   remove(id: string): void {
-    this.categories = this.categories.filter((cat) => cat.id !== id);
+    CategoryRepositoryMemory.categories =
+      CategoryRepositoryMemory.categories.filter((cat) => cat.id !== id);
   }
 }

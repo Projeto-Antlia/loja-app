@@ -1,5 +1,7 @@
 import { Category } from '../entities/category.entity';
 
+export const CATEGORY_NAME_PROVIDER = 'CategoryRepository';
+
 export interface CategoryRepository {
   create(category: Category): Category;
   findAll(): Category[];

@@ -1,0 +1,63 @@
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/categories/
+
+###
+GET http://localhost:3000/categories/d9742fbb-d873-4655-8c2f-ce05cc6a3ee9
+
+
+###
+POST http://localhost:3000/categories/
+Content-Type: application/json
+
+{
+    "name":"BEBIDAS",
+    "enable":false,
+    "show_menu":false
+}
+
+###
+PATCH http://localhost:3000/categories/d9742fbb-d873-4655-8c2f-ce05cc6a3ee9
+Content-Type: application/json
+
+{
+    "enable":true,
+    "show_menu":false
+}
+
+###
+DELETE  http://localhost:3000/categories/64ef5d33-3bbb-404a-8ed9-730df7790770
+
+###
+
+POST http://localhost:3000/products/
+Content-Type: application/json
+
+{
+    "CategoryID":"bd0764ea-d9a9-4528-b4c5-e7dca220fb4e",
+    "name":"Lata de Coca-Cola 350ml",
+    "price": 8,
+    "quantity": 8,
+    "availability": false
+}
+
+### GET ALL PRODUCTS
+GET http://localhost:3000/products/
+
+
+### GET PRODUCT BY ID
+GET http://localhost:3000/products/b86e45c3-28f1-4c21-8a78-6f7f84f077f1
+
+
+### UPDATE PRODUCT
+PATCH http://localhost:3000/products/
+Content-Type: application/json
+
+{
+    "CategoryID":"bd0764ea-d9a9-4528-b4c5-e7dca220fb4e",
+    "name":"Lata de Coca-Cola 350ml",
+    "price": 8,
+    "quantity": 8,
+    "availability": false
+}
