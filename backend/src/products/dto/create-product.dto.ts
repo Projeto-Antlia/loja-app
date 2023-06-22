@@ -1,22 +1,20 @@
-type ProductProps = {
-  CategoryID: string;
-  name: string;
-  price: number;
-  quantity: number;
-  availability: boolean;
-};
-export class CreateProductDto {
-  CategoryID: string;
-  name: string;
-  price: number;
-  quantity: number;
-  availability: boolean;
+import { IsCurrency, IsNotEmpty, IsNumber, IsUUID, Length, Max, Min } from "class-validator";
 
-  constructor(props: ProductProps) {
-    this.CategoryID = props.CategoryID;
-    this.name = props.name;
-    this.price = props.price;
-    this.quantity = props.quantity;
-    this.availability = props.availability;
-  }
+export class CreateProductDto {
+  
+  @IsNotEmpty()
+  @IsUUID()
+  categoryId: string;
+
+  @IsNotEmpty()
+  @Length(3, 20)
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0.01)
+  @Max(999999999.99)
+  price: number;
+  
+  availability: boolean;
 }

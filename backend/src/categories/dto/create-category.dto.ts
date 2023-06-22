@@ -1,16 +1,10 @@
-type CategoryProps = {
-  name: string;
-  enable: boolean;
-  show_menu: boolean;
-};
-export class CreateCategoryDto {
-  name: string;
-  enable: boolean;
-  show_menu: boolean;
+import { IsNotEmpty, Length } from "class-validator";
 
-  constructor(props: CategoryProps) {
-    this.name = props.name;
-    this.enable = props.enable;
-    this.show_menu = props.show_menu;
-  }
+export class CreateCategoryDto {
+
+  @IsNotEmpty()
+  @Length(3, 20)
+  name: string;
+  enable: boolean;
+  show_menu: boolean;
 }

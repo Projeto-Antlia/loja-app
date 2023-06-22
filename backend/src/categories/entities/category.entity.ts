@@ -1,9 +1,12 @@
-type CategoryProps = {
+import { InvalidAttributeException } from "src/@share/invalid-attribute-exception";
+
+export type CategoryProps = {
   id?: string;
   name: string;
   enable: boolean;
   show_menu: boolean;
 };
+
 export class Category {
   id?: string;
   name: string;
@@ -12,8 +15,24 @@ export class Category {
 
   constructor(props: CategoryProps) {
     this.id = props.id;
-    this.name = props.name;
-    this.enable = props.enable;
-    this.show_menu = props.show_menu;
+    this.updateName(props.name);
+    this.updateEnable(props.enable);
+    this.updateShowMenu(props.show_menu);
+  }
+
+  updateName(name: string) {
+    if (!name || !name.trim()) {
+      throw new InvalidAttributeException('name should not be empty')
+    }
+
+    this.name = name;
+  }
+
+  updateEnable(enable: boolean = true) {
+    this.enable = enable;
+  }
+
+  updateShowMenu(showMenu: boolean = false) {
+    this.show_menu = showMenu;
   }
 }

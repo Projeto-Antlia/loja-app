@@ -1,10 +1,9 @@
 FROM node:18.16-slim
-#usuario do container - root
+
+RUN apt update -y && apt install -y openssl
 
 USER node
 
-RUN mkdir -p /home/node/app
-
 WORKDIR /home/node/app
 
-CMD [ "tail", "-f", "/dev/null"]
+CMD ["tail", "-f", "/dev/null"]

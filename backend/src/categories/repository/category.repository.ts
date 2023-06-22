@@ -3,9 +3,10 @@ import { Category } from '../entities/category.entity';
 export const CATEGORY_NAME_PROVIDER = 'CategoryRepository';
 
 export interface CategoryRepository {
-  create(category: Category): Category;
-  findAll(): Category[];
-  findById(id: string): Category | undefined;
-  update(category: Category): Category;
-  remove(id: string): void;
+  create(category: Category): Promise<Category>;
+  findAll(): Promise<Category[]>;
+  findById(id: string): Promise<Category>;
+  update(category: Category): Promise<Category>;
+  remove(id: string): Promise<void>;
+  findByName(name: string): Promise<Category>;
 }

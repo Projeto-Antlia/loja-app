@@ -7,5 +7,5 @@ services:
       - .:/home/node/app
     ports:
       - 3000:3000
-    command: npx nest start --watch
+    command: npm run start:dev
     restart: always

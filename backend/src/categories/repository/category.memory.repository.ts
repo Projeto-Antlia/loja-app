@@ -5,23 +5,28 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CategoryRepositoryMemory implements CategoryRepository {
+
   static categories: Category[] = [];
 
-  create(category: Category): Category {
+  async create(category: Category): Promise<Category> {
     category.id = randomUUID();
     CategoryRepositoryMemory.categories.push(category);
     return category;
   }
 
-  findAll(): Category[] {
+  async findAll(): Promise<Category[]> {
     return CategoryRepositoryMemory.categories;
   }
 
-  findById(id: string): Category | undefined {
+  async findById(id: string): Promise<Category> {
     return CategoryRepositoryMemory.categories.find((item) => item.id === id);
   }
 
-  update(category: Category): Category {
+  async findByName(name: string): Promise<Category> {
+    return CategoryRepositoryMemory.categories.find((item) => item.name === name);
+  }
+
+  async update(category: Category): Promise<Category> {
     if (!category || !category.id) {
       throw new Error("ID's required");
     }
@@ -33,7 +38,7 @@ export class CategoryRepositoryMemory implements CategoryRepository {
     return category;
   }
 
-  remove(id: string): void {
+  async remove(id: string): Promise<void> {
     CategoryRepositoryMemory.categories =
       CategoryRepositoryMemory.categories.filter((cat) => cat.id !== id);
   }

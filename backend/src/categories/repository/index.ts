@@ -1,8 +1,8 @@
-import { CategoryRepositoryMemory } from './category.memory.repository';
+import { CategoryRepositorySqlite } from './category-sqlite.repository';
 
 export const CATEGORY_NAME_PROVIDER = 'CategoryRepository';
 
 export const CategoryRepositoryConfigs = [
-  CategoryRepositoryMemory,
-  { provide: CATEGORY_NAME_PROVIDER, useExisting: CategoryRepositoryMemory },
+  CategoryRepositorySqlite,
+  { provide: CATEGORY_NAME_PROVIDER, useExisting: CategoryRepositorySqlite },
 ];

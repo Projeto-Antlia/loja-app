@@ -1,23 +1,32 @@
 import { randomUUID } from 'crypto';
-import { Product } from '../entities/product.entity';
+import { Image, Product } from '../entities/product.entity';
 import { ProductRepository } from './product.repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ProductRepositoryMemory implements ProductRepository {
+
   products: Product[] = [];
-  create(product: Product): Product {
+
+  async create(product: Product): Promise<Product> {
     product.id = randomUUID();
     this.products.push(product);
     return product;
   }
-  findAll(): Product[] {
+
+  async findAll(): Promise<Product[]> {
     return this.products;
   }
-  findById(id: string): Product | undefined {
+
+  async findById(id: string): Promise<Product> {
     return this.products.find((item) => item.id === id);
   }
-  update(product: Product): Product {
+
+  async findByCategoryId(categoryId: string): Promise<Product[]> {
+    return this.products.filter((item) => item.categoryId === categoryId);
+  }
+
+  async update(product: Product): Promise<Product> {
     if (!product || !product.id) {
       throw new Error("ID's required");
     }
@@ -28,7 +37,20 @@ export class ProductRepositoryMemory implements ProductRepository {
     });
     return product;
   }
-  remove(id: string): void {
+  async remove(id: string): Promise<void> {
     this.products = this.products.filter((prod) => prod.id !== id);
+  }
+
+  async saveImage(product: Product): Promise<void> {
+    const isPresent = this.findById(product.id);
+    
+    if (isPresent) {
+      this.update(product)
+    }
+  }
+
+  async getImage(productId: string): Promise<Image> {
+    const product = this.findById(productId);
+    return (await product).image || undefined
   }
 }

@@ -1,63 +1,63 @@
+
+### HELLO WORLD
 GET http://localhost:3000/
 
-###
+### LISTAR TODAS AS CATEGORIAS
 GET http://localhost:3000/categories/
 
-###
-GET http://localhost:3000/categories/d9742fbb-d873-4655-8c2f-ce05cc6a3ee9
+### BUSCAR CATEGORIA PELO ID
+GET http://localhost:3000/categories/10f9e2b9-e1cb-457f-9913-6689f404fbcc
 
 
-###
+### CRIAR NOVA CATEGORIA
 POST http://localhost:3000/categories/
 Content-Type: application/json
 
 {
-    "name":"BEBIDAS",
+    "name":"LANCHES"
+}
+
+### ATUALIZAR CATEGORIA
+PUT http://localhost:3000/categories/3c8276a4-3107-40b7-b4f7-2d64fc387dfb
+Content-Type: application/json
+
+{
+    "name":"LANCHES",
     "enable":false,
     "show_menu":false
 }
 
-###
-PATCH http://localhost:3000/categories/d9742fbb-d873-4655-8c2f-ce05cc6a3ee9
+### DELETAR CATEGORIA
+DELETE  http://localhost:3000/categories/a91d8114-1916-4b2a-bcda-00c396a29eae
+
+
+### CADASTRAR PRODUTO
+POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-    "enable":true,
-    "show_menu":false
+    "categoryId":"cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c",
+    "name":"X SALADA",
+    "price": 6.50
 }
 
-###
-DELETE  http://localhost:3000/categories/64ef5d33-3bbb-404a-8ed9-730df7790770
+### LISTAR TODOS OS PRODUTOS
+GET http://localhost:3000/products
 
-###
+### LISTAR TODOS OS PRODUTOS POR CATEGORIA
+GET http://localhost:3000/products?categoryId=cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c
 
-POST http://localhost:3000/products/
+
+### BUSCAR PRODUTO PELO ID
+GET http://localhost:3000/products/2aa4d90e-0e11-4d67-840c-fcb772e77151
+
+
+### ATUALIZAR PRODUTO
+PUT http://localhost:3000/products/c7fa804e-0c31-4108-a059-f6412bf83f53
 Content-Type: application/json
 
 {
-    "CategoryID":"bd0764ea-d9a9-4528-b4c5-e7dca220fb4e",
-    "name":"Lata de Coca-Cola 350ml",
-    "price": 8,
-    "quantity": 8,
-    "availability": false
-}
-
-### GET ALL PRODUCTS
-GET http://localhost:3000/products/
-
-
-### GET PRODUCT BY ID
-GET http://localhost:3000/products/b86e45c3-28f1-4c21-8a78-6f7f84f077f1
-
-
-### UPDATE PRODUCT
-PATCH http://localhost:3000/products/
-Content-Type: application/json
-
-{
-    "CategoryID":"bd0764ea-d9a9-4528-b4c5-e7dca220fb4e",
-    "name":"Lata de Coca-Cola 350ml",
-    "price": 8,
-    "quantity": 8,
-    "availability": false
+    "categoryId":"10f9e2b9-e1cb-457f-9913-6689f404fbcc",
+    "name":"SPRITE LATA 350ML",
+    "price": 4.50
 }

@@ -1,8 +1,8 @@
-import { ProductRepositoryMemory } from './product.memory.repository';
+import { ProductRepositorySqlite } from './product-sqlite.repository';
 
 export const PRODUCT_NAME_PROVIDER = 'ProductRepository';
 
 export const ProductRepositoryConfigs = [
-  ProductRepositoryMemory,
-  { provide: PRODUCT_NAME_PROVIDER, useExisting: ProductRepositoryMemory },
+  ProductRepositorySqlite,
+  { provide: PRODUCT_NAME_PROVIDER, useExisting: ProductRepositorySqlite },
 ];

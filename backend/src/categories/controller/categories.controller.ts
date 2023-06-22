@@ -3,15 +3,14 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
-  NotFoundException,
   HttpCode,
+  Put,
 } from '@nestjs/common';
-import { CategoriesService } from './categories.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoriesService } from '../service/categories.service';
+import { CreateCategoryDto } from '../dto/create-category.dto';
+import { UpdateCategoryDto } from '../dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -29,32 +28,20 @@ export class CategoriesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    try {
-      return this.categoriesService.findOne(id);
-    } catch (error) {
-      throw new NotFoundException(error.message);
-    }
+    return this.categoriesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    try {
-      return this.categoriesService.update(id, updateCategoryDto);
-    } catch (error) {
-      throw new NotFoundException(error.message);
-    }
+    return this.categoriesService.update(id, updateCategoryDto);
   }
 
   @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    try {
-      return this.categoriesService.remove(id);
-    } catch (error) {
-      throw new NotFoundException(error.message);
-    }
+    return this.categoriesService.remove(id);
   }
 }
