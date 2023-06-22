@@ -11,11 +11,13 @@ datasource db {
 }
 
 model Category {
-  id        String    @id @default(uuid())
-  name      String    @unique
-  enable    Boolean   @default(true)
-  show_menu Boolean   @default(false)
-  Product   Product[]
+  id         String    @id @default(uuid())
+  name       String    @unique
+  enable     Boolean   @default(true)
+  show_menu  Boolean   @default(false)
+  Product    Product[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
 }
 
 model Product {
@@ -27,12 +29,16 @@ model Product {
   category     Category @relation(fields: [category_id], references: [id])
   category_id  String
   Image        Image?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now()) @updatedAt
 }
 
 model Image {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   bytes      Bytes?
   mimetype   String
-  product    Product @relation(fields: [product_id], references: [id])
-  product_id String  @unique
+  product    Product  @relation(fields: [product_id], references: [id])
+  product_id String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }

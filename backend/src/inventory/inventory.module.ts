@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import {
-  CategoryRepositoryConfigs,
-  ProductRepositoryConfigs,
+  CategoryRepositoryProvider,
+  ProductRepositoryProvider,
 } from './repository';
 import { ProductsController } from './controller/products.controller';
 import { ProductsService } from './service/products.service';
@@ -14,8 +14,8 @@ import { CategoriesService } from './service/categories.service';
   providers: [
     ProductsService,
     CategoriesService,
-    ...CategoryRepositoryConfigs,
-    ...ProductRepositoryConfigs,
+    CategoryRepositoryProvider,
+    ProductRepositoryProvider,
   ],
 })
 export class InventoryModule {}

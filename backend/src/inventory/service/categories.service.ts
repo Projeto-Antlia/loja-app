@@ -44,8 +44,8 @@ export class CategoriesService {
     const category = await this.findOne(category_id);
 
     // não utilizar o mesmo nome de outra categoria
-    if (updateCategoryDto.name !== category.name) {
-      await this.#requiredUniqueCategoryName(category.name);
+    if (category.name !== updateCategoryDto.name) {
+      await this.#requiredUniqueCategoryName(updateCategoryDto.name);
       category.updateName(updateCategoryDto.name);
     }
 
@@ -60,6 +60,7 @@ export class CategoriesService {
     await this.categoryRepository.remove(category_id);
   }
 
+  // FIX: Prisma Client does not offer support for case-insensitive filtering with SQLite
   async #requiredUniqueCategoryName(categoryName: string): Promise<void> {
     const isPresent = await this.categoryRepository.findByName(categoryName);
 

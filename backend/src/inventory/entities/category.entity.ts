@@ -5,6 +5,8 @@ export type CategoryProps = {
   name: string;
   enable: boolean;
   show_menu: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 export class Category {
@@ -12,12 +14,16 @@ export class Category {
   name: string;
   enable: boolean;
   show_menu: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 
   constructor(props: CategoryProps) {
     this.id = props.id;
     this.updateName(props.name);
     this.updateEnable(props.enable);
     this.updateShowMenu(props.show_menu);
+    this.created_at = props.created_at;
+    this.updated_at = props.updated_at;
   }
 
   updateName(name: string) {

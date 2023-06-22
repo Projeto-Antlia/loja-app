@@ -11,6 +11,8 @@ export class ProductRepositoryMemory implements ProductRepository {
   async create(product: Product): Promise<Product> {
     if (!product) return;
     product.id = randomUUID();
+    product.created_at = new Date();
+    product.updated_at = new Date();
     this.products.push(product);
     return product;
   }
@@ -34,6 +36,7 @@ export class ProductRepositoryMemory implements ProductRepository {
 
     this.products.forEach((prod, i) => {
       if (prod.id === product.id) {
+        product.updated_at = new Date();
         this.products[i] = product;
       }
     });
@@ -50,6 +53,8 @@ export class ProductRepositoryMemory implements ProductRepository {
 
     if (isPresent) {
       product.image.id = randomUUID();
+      product.image.created_at = new Date();
+      product.image.updated_at = new Date();
       this.update(product);
     }
   }

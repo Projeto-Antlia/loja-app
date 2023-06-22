@@ -11,6 +11,8 @@ export class CategoryRepositoryMemory implements CategoryRepository {
   async create(category: Category): Promise<Category> {
     category.id = randomUUID();
     CategoryRepositoryMemory.categories.push(category);
+    category.created_at = new Date();
+    category.updated_at = new Date();
     return category;
   }
 

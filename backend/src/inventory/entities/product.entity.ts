@@ -8,6 +8,8 @@ type ProductProps = {
   name: string;
   price: number;
   availability: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 export class Product {
@@ -18,6 +20,8 @@ export class Product {
   price: number;
   availability: boolean;
   image?: Image;
+  created_at?: Date;
+  updated_at?: Date;
 
   constructor(props: ProductProps) {
     this.id = props.id;
@@ -25,6 +29,8 @@ export class Product {
     this.updatePrice(props.price);
     this.updateAvailability(props.availability);
     this.addCategory({ ...props });
+    this.created_at = props.created_at;
+    this.updated_at = props.updated_at;
   }
 
   updateName(name: string) {

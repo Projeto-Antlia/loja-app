@@ -175,6 +175,8 @@ export class ProductSqLiteRepository implements ProductRepository {
           availability: producModel.availability,
           category_id: producModel.category_id,
           category_name: producModel.category.name,
+          created_at: producModel.created_at,
+          updated_at: producModel.updated_at,
         })
       : undefined;
   }
@@ -186,6 +188,8 @@ export class ProductSqLiteRepository implements ProductRepository {
           bytes: imageModel.bytes,
           mimetype: imageModel.mimetype,
           product_id: imageModel.product_id,
+          created_at: imageModel.created_at,
+          updated_at: imageModel.updated_at,
         })
       : undefined;
   }

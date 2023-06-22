@@ -39,9 +39,12 @@ export class CategorySqLiteRepository implements CategoryRepository {
 
   async findByName(name: string): Promise<Category> {
     if (!name) return;
+
     const categoryModel = await this.prismaService.category.findFirst({
       where: { name },
     });
+
+    // Prisma does not offer support for case-insensitive filtering with SQLite. :(
     return this.#map(categoryModel);
   }
 
@@ -73,6 +76,8 @@ export class CategorySqLiteRepository implements CategoryRepository {
           name: categoryModel.name,
           enable: categoryModel.enable,
           show_menu: categoryModel.show_menu,
+          created_at: categoryModel.created_at,
+          updated_at: categoryModel.updated_at,
         })
       : undefined;
   }

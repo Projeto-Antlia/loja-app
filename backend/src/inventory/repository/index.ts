@@ -8,15 +8,15 @@ import { CategorySqLiteRepository } from './category/category-sqlite.repository'
 export const CATEGORY_NAME_PROVIDER = 'CategoryRepository';
 export const PRODUCT_NAME_PROVIDER = 'ProductRepository';
 
-export const CategoryRepositoryConfigs = [
-  CategorySqLiteRepository,
-  { provide: CATEGORY_NAME_PROVIDER, useExisting: CategorySqLiteRepository },
-];
+export const CategoryRepositoryProvider = {
+  provide: CATEGORY_NAME_PROVIDER,
+  useClass: CategorySqLiteRepository,
+};
 
-export const ProductRepositoryConfigs = [
-  ProductSqLiteRepository,
-  { provide: PRODUCT_NAME_PROVIDER, useExisting: ProductSqLiteRepository },
-];
+export const ProductRepositoryProvider = {
+  provide: PRODUCT_NAME_PROVIDER,
+  useClass: ProductSqLiteRepository,
+};
 
 // Interfaces
 export { CategoryRepository, ProductRepository };
