@@ -1,8 +1,10 @@
-import { Category } from '../entities/category.entity';
-import { CategoryRepository } from './category.repository';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { Category as CategoryModel } from '@prisma/client';
+
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CategoryRepository } from 'src/inventory/repository';
+import { Category } from 'src/inventory/entities';
+
 @Injectable()
 export class CategorySqLiteRepository implements CategoryRepository {
   constructor(private readonly prismaService: PrismaService) {}

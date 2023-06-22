@@ -1,4 +1,4 @@
-import { Image, Product } from '../entities/product.entity';
+import { Image, Product } from 'src/inventory/entities';
 
 export interface ProductRepository {
   create(product: Product): Promise<Product>;

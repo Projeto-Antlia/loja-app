@@ -3,14 +3,14 @@
 GET http://localhost:3000/
 
 ### LISTAR TODAS AS CATEGORIAS
-GET http://localhost:3000/categories/
+GET http://localhost:3000/inventory/categories/
 
 ### BUSCAR CATEGORIA PELO ID
-GET http://localhost:3000/categories/10f9e2b9-e1cb-457f-9913-6689f404fbcc
+GET http://localhost:3000/inventory/categories/10f9e2b9-e1cb-457f-9913-6689f404fbcc
 
 
 ### CRIAR NOVA CATEGORIA
-POST http://localhost:3000/categories/
+POST http://localhost:3000/inventory/categories/
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### ATUALIZAR CATEGORIA
-PUT http://localhost:3000/categories/3c8276a4-3107-40b7-b4f7-2d64fc387dfb
+PUT http://localhost:3000/inventory/categories/3c8276a4-3107-40b7-b4f7-2d64fc387dfb
 Content-Type: application/json
 
 {
@@ -28,36 +28,35 @@ Content-Type: application/json
 }
 
 ### DELETAR CATEGORIA
-DELETE  http://localhost:3000/categories/a91d8114-1916-4b2a-bcda-00c396a29eae
+DELETE  http://localhost:3000/inventory/categories/a91d8114-1916-4b2a-bcda-00c396a29eae
 
 
 ### CADASTRAR PRODUTO
-POST http://localhost:3000/products
+POST http://localhost:3000/inventory/products
 Content-Type: application/json
 
 {
-    "categoryId":"cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c",
+    "category_id":"cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c",
     "name":"X SALADA",
     "price": 6.50
 }
 
 ### LISTAR TODOS OS PRODUTOS
-GET http://localhost:3000/products
+GET http://localhost:3000/inventory/products
 
 ### LISTAR TODOS OS PRODUTOS POR CATEGORIA
-GET http://localhost:3000/products?categoryId=cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c
+GET http://localhost:3000/inventory/products?category_id=cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c
 
 
 ### BUSCAR PRODUTO PELO ID
-GET http://localhost:3000/products/2aa4d90e-0e11-4d67-840c-fcb772e77151
+GET http://localhost:3000/inventory/products/2aa4d90e-0e11-4d67-840c-fcb772e77151
 
 
 ### ATUALIZAR PRODUTO
-PUT http://localhost:3000/products/c7fa804e-0c31-4108-a059-f6412bf83f53
+PUT http://localhost:3000/inventory/products/c7fa804e-0c31-4108-a059-f6412bf83f53
 Content-Type: application/json
 
 {
-    "categoryId":"10f9e2b9-e1cb-457f-9913-6689f404fbcc",
     "name":"SPRITE LATA 350ML",
     "price": 4.50
 }

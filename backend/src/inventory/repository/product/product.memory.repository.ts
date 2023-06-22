@@ -1,7 +1,8 @@
 import { randomUUID } from 'crypto';
-import { Image, Product } from '../entities/product.entity';
-import { ProductRepository } from './product.repository';
 import { Injectable } from '@nestjs/common';
+
+import { Image, Product } from 'src/inventory/entities';
+import { ProductRepository } from 'src/inventory/repository';
 
 @Injectable()
 export class ProductRepositoryMemory implements ProductRepository {

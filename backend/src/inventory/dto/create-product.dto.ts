@@ -7,8 +7,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class UpdateProductDto {
-  @IsNotEmpty()
+export class CreateProductDto {
   @IsUUID()
   category_id: string;
 

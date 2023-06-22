@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ProductRepository } from '../repository/product.repository';
-import { CategoriesService } from 'src/categories/service/categories.service';
-import { CreateProductDto } from '../dto/create-product.dto';
-import { UpdateProductDto } from '../dto/update-product.dto';
+
 import { ResourceNotFoundException } from 'src/_share/resource-not-found-exception';
 import { BusinessRuleException } from 'src/_share/business-rule-exception';
-import { Product } from '../entities/product.entity';
+import { CreateProductDto } from 'src/inventory/dto/create-product.dto';
+import { UpdateProductDto } from 'src/inventory/dto/update-product.dto';
+import { ProductRepository } from 'src/inventory/repository';
+import { CategoriesService } from './categories.service';
+import { Product } from 'src/inventory/entities/product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -51,11 +52,10 @@ export class ProductsService {
   async update(product_id: string, updateProductDto: UpdateProductDto) {
     const product = await this.findOne(product_id);
 
-    if (!updateProductDto.category_id) {
-      throw new BusinessRuleException('categoryId is required!');
-    }
-
-    if (product.category_id !== updateProductDto.category_id) {
+    if (
+      updateProductDto.category_id &&
+      updateProductDto.category_id !== product.category_id
+    ) {
       const category = await this.categoriesService.findOne(
         updateProductDto.category_id,
       );

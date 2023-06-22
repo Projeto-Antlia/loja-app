@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
-import { Category } from '../entities/category.entity';
-import { CategoryRepository } from './category.repository';
+
+import { CategoryRepository } from 'src/inventory/repository';
+import { Category } from 'src/inventory/entities';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

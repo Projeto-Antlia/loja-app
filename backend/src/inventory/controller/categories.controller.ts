@@ -8,6 +8,7 @@ import {
   HttpCode,
   Put,
 } from '@nestjs/common';
+
 import { CategoriesService } from '../service/categories.service';
 import { CreateCategoryDto } from '../dto/create-category.dto';
 import { UpdateCategoryDto } from '../dto/update-category.dto';

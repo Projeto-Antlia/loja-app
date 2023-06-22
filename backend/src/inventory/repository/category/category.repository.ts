@@ -1,4 +1,4 @@
-import { Category } from '../entities/category.entity';
+import { Category } from 'src/inventory/entities';
 
 export const CATEGORY_NAME_PROVIDER = 'CategoryRepository';
 

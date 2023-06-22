@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateCategoryDto } from '../dto/create-category.dto';
-import { UpdateCategoryDto } from '../dto/update-category.dto';
-import { Category } from '../entities/category.entity';
-import { CategoryRepository } from '../repository/category.repository';
+
 import { ResourceNotFoundException } from 'src/_share/resource-not-found-exception';
 import { BusinessRuleException } from 'src/_share/business-rule-exception';
+import { CreateCategoryDto } from 'src/inventory/dto/create-category.dto';
+import { UpdateCategoryDto } from 'src/inventory/dto/update-category.dto';
+import { CategoryRepository } from 'src/inventory/repository';
+import { Category } from 'src/inventory/entities';
 
 @Injectable()
 export class CategoriesService {
@@ -14,8 +15,6 @@ export class CategoriesService {
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    console.log(createCategoryDto);
-
     // não cadastrar categoria com o mesmo nome
     await this.#requiredUniqueCategoryName(createCategoryDto.name);
 

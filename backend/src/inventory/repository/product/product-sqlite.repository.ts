@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { Image as ImageModel, Product as ProducModel } from '@prisma/client';
-import { Image, Product } from '../entities/product.entity';
-import { ProductRepository } from './product.repository';
+
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Image, Product } from 'src/inventory/entities';
+import { ProductRepository } from 'src/inventory/repository';
 
 type ProductModelMapper = ProducModel & {
   category: {

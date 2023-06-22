@@ -16,11 +16,12 @@ import {
   Res,
   StreamableFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+
 import { ProductsService } from '../service/products.service';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
 
 @Controller('products')
 export class ProductsController {
@@ -33,32 +34,35 @@ export class ProductsController {
 
   @Get()
   findAll(@Query() params: any) {
-    return params.categoryId
-      ? this.productsService.findAllProductsByCategory(params.categoryId)
+    return params.category_id
+      ? this.productsService.findAllProductsByCategory(params.category_id)
       : this.productsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(id);
+  @Get(':product_id')
+  findOne(@Param('product_id') product_id: string) {
+    return this.productsService.findOne(product_id);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(id, updateProductDto);
+  @Put(':product_id')
+  update(
+    @Param('product_id') product_id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
+    return this.productsService.update(product_id, updateProductDto);
   }
 
   @HttpCode(204)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
+  @Delete(':product_id')
+  remove(@Param('product_id') product_id: string) {
+    return this.productsService.remove(product_id);
   }
 
-  @Post(':productId/upload-image')
+  @Post(':product_id/upload-image')
   @HttpCode(200)
   @UseInterceptors(FileInterceptor('file'))
   async uploadImage(
-    @Param('productId') productId: string,
+    @Param('product_id') product_id: string,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -69,15 +73,15 @@ export class ProductsController {
     )
     file: Express.Multer.File,
   ) {
-    await this.productsService.uploadImage(productId, file);
+    await this.productsService.uploadImage(product_id, file);
   }
 
-  @Get(':productId/image')
+  @Get(':product_id/image')
   async getFile(
-    @Param('productId') productId: string,
+    @Param('product_id') product_id: string,
     @Res({ passthrough: true }) res: Response,
   ): Promise<StreamableFile> {
-    const image = await this.productsService.getImage(productId);
+    const image = await this.productsService.getImage(product_id);
 
     res.set({ 'Content-Type': image.mimetype });
     return new StreamableFile(image.bytes);
