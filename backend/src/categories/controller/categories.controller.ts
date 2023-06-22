@@ -26,22 +26,22 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(id);
+  @Get(':category_id')
+  findOne(@Param('category_id') category_id: string) {
+    return this.categoriesService.findOne(category_id);
   }
 
-  @Put(':id')
+  @Put(':category_id')
   update(
-    @Param('id') id: string,
+    @Param('category_id') category_id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(id, updateCategoryDto);
+    return this.categoriesService.update(category_id, updateCategoryDto);
   }
 
   @HttpCode(204)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(id);
+  @Delete(':category_id')
+  remove(@Param('category_id') category_id: string) {
+    return this.categoriesService.remove(category_id);
   }
 }

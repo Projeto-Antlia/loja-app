@@ -1,10 +1,16 @@
-import { IsCurrency, IsNotEmpty, IsNumber, IsUUID, Length, Max, Min } from "class-validator";
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsUUID,
+  Length,
+  Max,
+  Min,
+} from 'class-validator';
 
 export class CreateProductDto {
-  
   @IsNotEmpty()
   @IsUUID()
-  categoryId: string;
+  category_id: string;
 
   @IsNotEmpty()
   @Length(3, 20)
@@ -15,6 +21,6 @@ export class CreateProductDto {
   @Min(0.01)
   @Max(999999999.99)
   price: number;
-  
+
   availability: boolean;
 }

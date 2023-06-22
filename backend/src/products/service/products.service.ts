@@ -3,36 +3,34 @@ import { ProductRepository } from '../repository/product.repository';
 import { CategoriesService } from 'src/categories/service/categories.service';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
+import { ResourceNotFoundException } from 'src/_share/resource-not-found-exception';
+import { BusinessRuleException } from 'src/_share/business-rule-exception';
 import { Product } from '../entities/product.entity';
-import { ResourceNotFoundException } from 'src/@share/resource-not-found-exception';
-import { BusinessRuleException } from 'src/@share/business-rule-exception';
 
 @Injectable()
 export class ProductsService {
-
   constructor(
     @Inject('ProductRepository')
     private readonly productRepository: ProductRepository,
     private readonly categoriesService: CategoriesService,
   ) {}
   async create(createProductDto: CreateProductDto) {
-
-    if (!createProductDto.categoryId) {
-      throw new BusinessRuleException('categoryId is required!')
+    if (!createProductDto.category_id) {
+      throw new BusinessRuleException('categoryId is required!');
     }
-    
+
     const category = await this.categoriesService.findOne(
-      createProductDto.categoryId,
+      createProductDto.category_id,
     );
 
     const product = new Product({
-      categoryId: category.id,
-      categoryName: category.name,
+      category_id: category.id,
+      category_name: category.name,
       name: createProductDto.name,
       price: createProductDto.price,
       availability: createProductDto.availability,
     });
-    
+
     return await this.productRepository.create(product);
   }
 
@@ -40,9 +38,8 @@ export class ProductsService {
     return await this.productRepository.findAll();
   }
 
-  async findOne(id: string) {
-    console.log('id produto', id)
-    const product = await this.productRepository.findById(id);
+  async findOne(product_id: string) {
+    const product = await this.productRepository.findById(product_id);
     if (!product) throw new ResourceNotFoundException('Product');
     return product;
   }
@@ -51,43 +48,45 @@ export class ProductsService {
     return await this.productRepository.findByCategoryId(categoryId);
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
-    const product = await this.findOne(id);
+  async update(product_id: string, updateProductDto: UpdateProductDto) {
+    const product = await this.findOne(product_id);
 
-    if (!updateProductDto.categoryId) {
-      throw new BusinessRuleException('categoryId is required!')
+    if (!updateProductDto.category_id) {
+      throw new BusinessRuleException('categoryId is required!');
     }
 
-    if (product.categoryId !== updateProductDto.categoryId) {
-        
+    if (product.category_id !== updateProductDto.category_id) {
       const category = await this.categoriesService.findOne(
-        updateProductDto.categoryId,
+        updateProductDto.category_id,
       );
 
-      product.addCategory({ categoryId: category.id, categoryName: category.name })
+      product.addCategory({
+        category_id: category.id,
+        category_name: category.name,
+      });
     }
 
-    product.updateName(updateProductDto.name)
-    product.updatePrice(updateProductDto.price)
-    product.updateAvailability(updateProductDto.availability)
+    product.updateName(updateProductDto.name);
+    product.updatePrice(updateProductDto.price);
+    product.updateAvailability(updateProductDto.availability);
 
     return await this.productRepository.update(product);
   }
 
-  async remove(id: string) {
-    await this.findOne(id);
-    await this.productRepository.remove(id);
+  async remove(product_id: string) {
+    await this.findOne(product_id);
+    await this.productRepository.remove(product_id);
   }
 
-  async uploadImage(id: string, file: Express.Multer.File) {
-    const product = await this.findOne(id)
-    product.addImage(file.buffer, file.mimetype)
+  async uploadImage(product_id: string, file: Express.Multer.File) {
+    const product = await this.findOne(product_id);
+    product.addImage(file.buffer, file.mimetype);
     await this.productRepository.saveImage(product);
   }
 
-  async getImage(productId: string) {
-    const product = await this.findOne(productId);
-    
+  async getImage(product_id: string) {
+    const product = await this.findOne(product_id);
+
     const image = await this.productRepository.getImage(product.id);
     if (!image) throw new ResourceNotFoundException('Image');
 

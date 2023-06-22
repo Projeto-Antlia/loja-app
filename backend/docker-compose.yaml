@@ -3,9 +3,8 @@ services:
   app:
     build: .
     container_name: micro-antlia-app-typescript
+    restart: on-failure
     volumes:
       - .:/home/node/app
     ports:
       - 3000:3000
-    command: npm run start:dev
-    restart: always

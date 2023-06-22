@@ -37,3 +37,4 @@ lerna-debug.log*
 
 #prisma
 /prisma/*.db
+/prisma/*.db-journal

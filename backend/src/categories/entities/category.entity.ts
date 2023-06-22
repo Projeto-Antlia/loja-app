@@ -1,4 +1,4 @@
-import { InvalidAttributeException } from "src/@share/invalid-attribute-exception";
+import { InvalidAttributeException } from 'src/_share/invalid-attribute-exception';
 
 export type CategoryProps = {
   id?: string;
@@ -22,17 +22,17 @@ export class Category {
 
   updateName(name: string) {
     if (!name || !name.trim()) {
-      throw new InvalidAttributeException('name should not be empty')
+      throw new InvalidAttributeException('name should not be empty');
     }
 
     this.name = name;
   }
 
-  updateEnable(enable: boolean = true) {
+  updateEnable(enable = true) {
     this.enable = enable;
   }
 
-  updateShowMenu(showMenu: boolean = false) {
+  updateShowMenu(showMenu = false) {
     this.show_menu = showMenu;
   }
 }

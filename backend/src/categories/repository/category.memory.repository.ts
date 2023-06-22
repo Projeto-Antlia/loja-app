@@ -5,7 +5,6 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CategoryRepositoryMemory implements CategoryRepository {
-
   static categories: Category[] = [];
 
   async create(category: Category): Promise<Category> {
@@ -18,18 +17,19 @@ export class CategoryRepositoryMemory implements CategoryRepository {
     return CategoryRepositoryMemory.categories;
   }
 
-  async findById(id: string): Promise<Category> {
-    return CategoryRepositoryMemory.categories.find((item) => item.id === id);
+  async findById(category_id: string): Promise<Category> {
+    return CategoryRepositoryMemory.categories.find(
+      (cat) => cat.id === category_id,
+    );
   }
 
   async findByName(name: string): Promise<Category> {
-    return CategoryRepositoryMemory.categories.find((item) => item.name === name);
+    return CategoryRepositoryMemory.categories.find((cat) => cat.name === name);
   }
 
   async update(category: Category): Promise<Category> {
-    if (!category || !category.id) {
-      throw new Error("ID's required");
-    }
+    if (!category || !category.id) return;
+
     CategoryRepositoryMemory.categories.forEach((cat, i) => {
       if (cat.id === category.id) {
         CategoryRepositoryMemory.categories[i] = category;
@@ -38,8 +38,10 @@ export class CategoryRepositoryMemory implements CategoryRepository {
     return category;
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(category_id: string): Promise<void> {
     CategoryRepositoryMemory.categories =
-      CategoryRepositoryMemory.categories.filter((cat) => cat.id !== id);
+      CategoryRepositoryMemory.categories.filter(
+        (cat) => cat.id !== category_id,
+      );
   }
 }

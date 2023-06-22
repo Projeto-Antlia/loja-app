@@ -3,10 +3,10 @@ import { Image, Product } from '../entities/product.entity';
 export interface ProductRepository {
   create(product: Product): Promise<Product>;
   findAll(): Promise<Product[]>;
-  findByCategoryId(categoryId: string): Promise<Product[]>
-  findById(id: string): Promise<Product>;
+  findById(product_id: string): Promise<Product>;
+  findByCategoryId(category_id: string): Promise<Product[]>;
   update(product: Product): Promise<Product>;
-  remove(id: string): Promise<void>;
+  remove(product_id: string): Promise<void>;
+  getImage(product_id: string): Promise<Image>;
   saveImage(product: Product): Promise<void>;
-  getImage(productId: string): Promise<Image>
 }

@@ -22,7 +22,6 @@ import { UpdateProductDto } from '../dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 
-
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
@@ -34,8 +33,8 @@ export class ProductsController {
 
   @Get()
   findAll(@Query() params: any) {
-    return params.categoryId 
-      ? this.productsService.findAllProductsByCategory(params.categoryId) 
+    return params.categoryId
+      ? this.productsService.findAllProductsByCategory(params.categoryId)
       : this.productsService.findAll();
   }
 
@@ -65,10 +64,10 @@ export class ProductsController {
         validators: [
           new MaxFileSizeValidator({ maxSize: 5000000 }),
           new FileTypeValidator({ fileType: 'image/jpeg|image/png' }),
-        ]
-      })
-    ) 
-    file: Express.Multer.File
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ) {
     await this.productsService.uploadImage(productId, file);
   }
@@ -76,12 +75,11 @@ export class ProductsController {
   @Get(':productId/image')
   async getFile(
     @Param('productId') productId: string,
-    @Res({ passthrough: true }) res: Response
-  ) : Promise<StreamableFile> {
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<StreamableFile> {
+    const image = await this.productsService.getImage(productId);
 
-    const image = await this.productsService.getImage(productId)
-
-    res.set({'Content-Type': image.mimetype});
+    res.set({ 'Content-Type': image.mimetype });
     return new StreamableFile(image.bytes);
   }
 }
