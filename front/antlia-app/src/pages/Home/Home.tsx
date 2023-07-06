@@ -7,6 +7,7 @@ import {
     StatusBar,
 
 } from 'react-native';
+import Header from '../../components/Header/Header';
 
 export default function Home() {
 
@@ -26,10 +27,7 @@ export default function Home() {
                 style={{ flex: 1 }}
             >
                 {/* Header que ainda vai ser feito */}
-                <Box>
-                    <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-                    <HStack bg="primary.400" px="1" py="3" justifyContent="space-between" h={100} alignItems="center"></HStack>
-                </Box>
+                <Header />
                 <Box py="4" maxWidth="100%" backgroundColor="6a51ae" alignItems='center'>
                     <VStack justifyContent="space-between" w='80%'>
                         <Text fontSize="80" color="#2b2b2b" style={{ fontFamily: 'Rubik_600SemiBold' }} textAlign='center'>
