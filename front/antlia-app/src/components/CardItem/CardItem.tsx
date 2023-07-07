@@ -12,32 +12,46 @@ interface CardItemProps {
     title: string;
     image: string;
     link?: string;
+    quantidade?: string;
     valor?: string;
+
 }
 
-export const CardItem: React.FC<CardItemProps> = ({ title, image, link, valor }) => {
+export const CardItem: React.FC<CardItemProps> = ({ title, image, link, valor, quantidade }) => {
     const buttonStyles = {
         h3: title,
         image: image,
-        valor: valor
+        valor: valor,
+        quantidade: quantidade
     };
 
+    if (quantidade === '') {
+        quantidade = 'Garrafinha';
+    } else {
+        quantidade = quantidade + ' ML'
+    }
+
     return (
-        <Pressable h='250' w='200' onPress={() => window.alert(`i'm press ${title}`)} display='flex' justifyContent="center" flexDirection='row' rounded="8" bg="#ffff" marginBottom={10} shadow="9"  >
-            <HStack justifyContent="space-around" alignItems={'center'}>
-                {/* <Image style={{ height: 120, width: 120 }}
+        <NativeBaseProvider>
+            <Pressable h='250' w='200' onPress={() => window.alert(`${title} adicionado ao carrinho!`)} rounded="8" bg="#ffff" marginBottom={10} shadow="9"  >
+                <HStack justifyContent="space-around" alignItems={'center'} display='flex' flexDirection='column' >
+                    {/* <Image style={{ height: 120, width: 120 }}
                     source={require('../../assets/Vectorcar.png')}
                     alt="Vector Bag"
                 /> */}
-                <Image src={image} alt="icone" />
-                {/* <img src={image} alt="icone" /> */}
-                <Text color="#000" style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15">
-                    {title}
-                </Text>
-                <Text>
-                    {`R$: ${valor}`}
-                </Text>
-            </HStack>
-        </Pressable>
+                    <Image src={image} alt="icone" />
+                    {/* <img src={image} alt="icone" /> */}
+                    <Text color="#000" style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15">
+                        {title}
+                    </Text>
+                    <Text style={{ fontFamily: 'Rubik_600SemiBold' }}>
+                        {quantidade}
+                    </Text>
+                    <Text>
+                        {`R$: ${valor}`}
+                    </Text>
+                </HStack>
+            </Pressable>
+        </NativeBaseProvider>
     )
 }
