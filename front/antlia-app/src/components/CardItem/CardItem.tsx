@@ -1,23 +1,18 @@
 import { Rubik_400Regular, Rubik_600SemiBold, useFonts, Rubik_700Bold } from '@expo-google-fonts/rubik';
-import { Box, HStack, NativeBaseProvider, Pressable, Text, VStack, Image } from 'native-base';
-import React from 'react';
-
-import {
-    KeyboardAvoidingView,
-    StatusBar,
-    View,
-} from 'react-native';
+import { Box, HStack, NativeBaseProvider, Pressable, Text, VStack, Image, useToast } from 'native-base';
+import React, { useState } from 'react';
 
 interface CardItemProps {
     title: string;
     image: string;
-    link?: string;
+    // link?: string;
     quantidade?: string;
     valor?: string;
-
 }
+// const image = require('../../assets/coca.png')
 
-export const CardItem: React.FC<CardItemProps> = ({ title, image, link, valor, quantidade }) => {
+export const CardItem: React.FC<CardItemProps> = ({ title, image, valor, quantidade, }) => {
+    const toast = useToast();
     const buttonStyles = {
         h3: title,
         image: image,
@@ -25,30 +20,42 @@ export const CardItem: React.FC<CardItemProps> = ({ title, image, link, valor, q
         quantidade: quantidade
     };
 
-    if (quantidade === '') {
-        quantidade = 'Garrafinha';
-    } else {
-        quantidade = quantidade + ' ML'
-    }
+    // if (quantidade === '') {
+    //     quantidade = 'Garrafinha';
+    // }{
+    //     quantidade = quantidade + ' ML'
+    // }
+
+    const [isPressed, setIsPressed] = useState(false);
+    const handlePress = () => {
+        setIsPressed(true);
+        toast.show({
+            title: `${title} adicionado ao carrinho!`,
+            placement: 'top-right'
+            // render: () => {
+            //     return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
+            //         {`${title} adicionado ao carrinho!`}
+            //     </Box>;
+            // }
+        });
+    };
+    quantidade === '' ? quantidade = 'Garrafinha' : quantidade = quantidade + ' ML'
+    const valorText = isPressed ? 'Adicionado' : `R$: ${valor}`;
 
     return (
         <NativeBaseProvider>
-            <Pressable h='250' w='200' onPress={() => window.alert(`${title} adicionado ao carrinho!`)} rounded="8" bg="#ffff" marginBottom={10} shadow="9"  >
-                <HStack justifyContent="space-around" alignItems={'center'} display='flex' flexDirection='column' >
-                    {/* <Image style={{ height: 120, width: 120 }}
-                    source={require('../../assets/Vectorcar.png')}
-                    alt="Vector Bag"
-                /> */}
-                    <Image src={image} alt="icone" />
-                    {/* <img src={image} alt="icone" /> */}
-                    <Text color="#000" style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15">
-                        {title}
+            <Pressable h='250' w='200' onPress={handlePress} rounded="8" bg="#ffff" marginBottom={10} shadow="9" display='flex' flexDirection='column' justifyContent="space-around">
+                <HStack alignItems={'center'} flexDirection='column' >
+                    <Image style={{ height: 120, width: 120 }}
+                        // src={image}
+                        source={require('../../assets/coca.png')}
+                        alt="Vector Bag"
+                    />
+                    <Text color="#000" style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15" textAlign={'center'}>
+                        {title}{'\n'}{quantidade}
                     </Text>
-                    <Text style={{ fontFamily: 'Rubik_600SemiBold' }}>
-                        {quantidade}
-                    </Text>
-                    <Text>
-                        {`R$: ${valor}`}
+                    <Text bg={isPressed ? '#FFF' : "#ffbf1A"} color={isPressed ? '#22831A' : "#000"} borderWidth="0" w='4/6' rounded="lg" textAlign={'center'} style={{ fontFamily: 'Rubik_700Bold' }}>
+                        {valorText}
                     </Text>
                 </HStack>
             </Pressable>
