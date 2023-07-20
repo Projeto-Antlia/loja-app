@@ -60,3 +60,20 @@ Content-Type: application/json
     "name":"SPRITE LATA 350ML",
     "price": 4.50
 }
+
+
+### Criar uma order
+
+POST http://localhost:3000/orders/
+Content-Type: application/json
+
+{
+    "customer_id":"c7fa804e-0c31-4108-a059-f6412bf83f53",
+    "customer_name":"Thiagao da massa",
+    "total": 10.01
+}
+
+###
+GET http://localhost:3000/orders/
+Content-Type: application/json
+

@@ -42,3 +42,11 @@ model Image {
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 }
+
+model Order {
+  id            String   @id @default(uuid())
+  total         Decimal
+  customer_id   String
+  customer_name String
+  created_at    DateTime @default(now())
+}

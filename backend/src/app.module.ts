@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ShareModule } from './_share/share.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { RouterModule } from '@nestjs/core';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RouterModule } from '@nestjs/core';
         module: InventoryModule,
       },
     ]),
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
