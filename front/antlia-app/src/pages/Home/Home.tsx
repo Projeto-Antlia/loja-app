@@ -1,5 +1,6 @@
 import { Rubik_400Regular, Rubik_600SemiBold, useFonts, Rubik_700Bold } from '@expo-google-fonts/rubik';
 import { Box, HStack, NativeBaseProvider, Pressable, Text, VStack, Image } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
 import {
@@ -8,8 +9,10 @@ import {
 
 } from 'react-native';
 import Header from '../../components/Header/Header';
+import { StackTypes } from '../../routes/Stack';
 
 export default function Home() {
+    const navigation = useNavigation<StackTypes>();
 
     const [fontLoaded] = useFonts({
         Rubik_400Regular,
@@ -37,7 +40,9 @@ export default function Home() {
                         <Text fontSize="50" color="#2b2b2b" style={{ fontFamily: 'Rubik_400Regular' }} py='10' >
                             O que gostaria {'\n'}de fazer?
                         </Text>
-                        <Pressable h='190' onPress={() => window.alert("I'm Presseds")} display='flex' justifyContent="center" rounded="8" bg="#FFBF1A" marginBottom={10} >
+                        <Pressable h='190' display='flex' justifyContent="center" rounded="8" bg="#FFBF1A" marginBottom={10}
+                            onPress={() => { navigation.navigate("MktScreen") }}
+                        >
                             <HStack justifyContent="space-around" alignItems={'center'}>
                                 <Box>
                                     <Text color="#000" style={{ fontFamily: 'Rubik_700Bold' }} fontSize="35">
@@ -69,11 +74,3 @@ export default function Home() {
         </NativeBaseProvider>
     )
 }
-
-
-
-{/* <SimpleLineIcons
-        color={'#ffff'}
-        name="handbag"
-        size={90}
-    /> */}

@@ -1,5 +1,4 @@
-import { Rubik_400Regular, Rubik_600SemiBold, useFonts, Rubik_700Bold } from '@expo-google-fonts/rubik';
-import { Box, HStack, NativeBaseProvider, Pressable, Text, VStack, Image, useToast } from 'native-base';
+import { HStack, NativeBaseProvider, Pressable, Text, Image, useToast } from 'native-base';
 import React, { useState } from 'react';
 
 interface CardItemProps {
@@ -9,7 +8,6 @@ interface CardItemProps {
     quantidade?: string;
     valor?: string;
 }
-// const image = require('../../assets/coca.png')
 
 export const CardItem: React.FC<CardItemProps> = ({ title, image, valor, quantidade, }) => {
     const toast = useToast();
@@ -19,13 +17,6 @@ export const CardItem: React.FC<CardItemProps> = ({ title, image, valor, quantid
         valor: valor,
         quantidade: quantidade
     };
-
-    // if (quantidade === '') {
-    //     quantidade = 'Garrafinha';
-    // }{
-    //     quantidade = quantidade + ' ML'
-    // }
-
     const [isPressed, setIsPressed] = useState(false);
     const handlePress = () => {
         setIsPressed(true);
@@ -47,8 +38,7 @@ export const CardItem: React.FC<CardItemProps> = ({ title, image, valor, quantid
             <Pressable h='250' w='200' onPress={handlePress} rounded="8" bg="#ffff" marginBottom={10} shadow="9" display='flex' flexDirection='column' justifyContent="space-around">
                 <HStack alignItems={'center'} flexDirection='column' >
                     <Image style={{ height: 120, width: 120 }}
-                        // src={image}
-                        source={require('../../assets/coca.png')}
+                        src={image || ""}
                         alt="Vector Bag"
                     />
                     <Text color="#000" style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15" textAlign={'center'}>

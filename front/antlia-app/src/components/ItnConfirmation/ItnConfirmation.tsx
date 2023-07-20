@@ -1,6 +1,5 @@
 import React from 'react';
-import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
-import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, useToast, Pressable, VStack } from "native-base";
+import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, useToast, Pressable } from "native-base";
 
 interface IntConfirmationProps {
     title: string
@@ -25,11 +24,10 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
     return (
         <NativeBaseProvider>
             <KeyboardAvoidingView >
-                <HStack bg='#fff' w='100%' h='150px' alignItems={'center'} justifyContent={'space-between'}>
+                <HStack bg='#fff' p='2%' w='100%' h='150px' alignItems={'center'} justifyContent={'space-between'}>
                     <Image
                         style={{ height: 120, width: 120 }}
-                        // src={image}
-                        source={require('../../assets/coca.png')}
+                        src={image || ""}
                         alt="Vector Bag"
                     />
                     <Divider thickness="2" orientation="vertical" />
@@ -42,8 +40,9 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                             {`R$: ${valor}`}
                         </Text>
                     </Box>
-                    <Box>
-                        <HStack alignItems={'center'} w={'1/2'} justifyContent={'space-evenly'}>
+                    {/* Quantidade */}
+                    <Box w='30%' >
+                        <HStack alignItems={'center'} w='80%' justifyContent={'space-around'} >
                             <Image
                                 style={{ height: 45, width: 45 }}
                                 source={require('../../assets/less.png')}
