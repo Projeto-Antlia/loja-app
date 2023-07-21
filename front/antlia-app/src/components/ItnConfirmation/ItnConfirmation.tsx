@@ -1,17 +1,30 @@
-import React from 'react';
-import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, useToast, Pressable } from "native-base";
+import React, { useState } from 'react';
+import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, useToast, Pressable, Button } from "native-base";
 
 interface IntConfirmationProps {
     title: string
     image: string
     descricao?: string
-    quantidade?: string
+    quantidade: string
     valor: string
 }
 
 export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade }) => {
-
     const toast = useToast();
+    const [quantity, setQuantity] = useState<number>(quantidade ? parseInt(quantidade) : 1);
+    // const [quantity, setQuantity] = useState<number>(1)
+
+    const handleIncrement = () => {
+        // setQuantity(prevQuantity => prevQuantity + 1);
+        console.log(quantidade)
+    };
+
+    const handleDecrement = () => {
+        if (quantity > 1) {
+            setQuantity(prevQuantity => prevQuantity - 1);
+        }
+    };
+
     const styles = {
         h3: title,
         image: image,
@@ -20,6 +33,7 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
         valor: valor
     }
     descricao === '' ? descricao = 'Garrafinha' : descricao = descricao + ' ML'
+    quantidade === '' ? quantidade = quantidade + 1 : quantidade 
 
     return (
         <NativeBaseProvider>
@@ -34,7 +48,6 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                     <Box >
                         <Text color='#626262' style={{ fontFamily: 'Rubik_400Regular' }}>
                             {title}{'\n'}{descricao}
-                            {/* Coca Cola Lata{'\n'} 350ML */}
                         </Text>
                         <Text color='#2B2B2B' fontSize={20} style={{ fontFamily: 'Rubik_600SemiBold' }}>
                             {`R$: ${valor}`}
@@ -43,21 +56,33 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                     {/* Quantidade */}
                     <Box w='30%' >
                         <HStack alignItems={'center'} w='80%' justifyContent={'space-around'} >
-                            <Image
-                                style={{ height: 45, width: 45 }}
-                                source={require('../../assets/less.png')}
-                                alt="Vector Bag"
-                            />
+                            <Button onPress={handleDecrement}> 
+                                <Text>
+                                    R
+                                </Text>
+                            </Button>
+                            {/* <Pressable onPress={handleDecrement}>
+                                <Image
+                                    style={{ height: 45, width: 45 }}
+                                    source={require('../../assets/less.png')}
+                                    alt="Vector Bag"
+                                />
+                            </Pressable> */}
                             <Text color='#000' fontSize={35} style={{ fontFamily: 'Rubik_600SemiBold' }}>
                                 {quantidade}
                             </Text>
-                            <Pressable onPress={() => window.alert("I'm Presseds")}>
+                            <Button onPress={handleIncrement}>
+                                <Text>
+                                    A
+                                </Text>
+                            </Button>
+                            {/* <Pressable onPress={handleIncrement}>
                                 <Image
                                     style={{ height: 45, width: 45 }}
                                     source={require('../../assets/plus.png')}
                                     alt="Vector Bag"
                                 />
-                            </Pressable>
+                            </Pressable> */}
                         </HStack>
                     </Box>
                 </HStack>
@@ -65,4 +90,3 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
         </NativeBaseProvider>
     )
 }
-
