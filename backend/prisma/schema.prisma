@@ -21,16 +21,16 @@ model Category {
 }
 
 model Product {
-  id           String   @id @default(uuid())
+  id           String      @id @default(uuid())
   name         String
-  image        Bytes?
   price        Decimal
-  availability Boolean  @default(true)
-  category     Category @relation(fields: [category_id], references: [id])
+  availability Boolean     @default(true)
+  category     Category    @relation(fields: [category_id], references: [id])
   category_id  String
-  Image        Image?
-  created_at   DateTime @default(now())
-  updated_at   DateTime @default(now()) @updatedAt
+  image        Image?
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @default(now()) @updatedAt
+  OrderItem    OrderItem[]
 }
 
 model Image {
@@ -44,9 +44,22 @@ model Image {
 }
 
 model Order {
-  id            String   @id @default(uuid())
-  total         Decimal
+  id            String      @id @default(uuid())
   customer_id   String
   customer_name String
-  created_at    DateTime @default(now())
+  total         Decimal
+  order_items   OrderItem[]
+  created_at    DateTime    @default(now())
+}
+
+model OrderItem {
+  id         String   @id @default(uuid())
+  product    Product  @relation(fields: [product_id], references: [id])
+  product_id String
+  Order      Order    @relation(fields: [order_id], references: [id])
+  order_id   String
+  quantity   Int
+  subtotal   Decimal
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }

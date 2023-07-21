@@ -17,5 +17,6 @@ import { CategoriesService } from './service/categories.service';
     CategoryRepositoryProvider,
     ProductRepositoryProvider,
   ],
+  exports: [ProductsService],
 })
 export class InventoryModule {}

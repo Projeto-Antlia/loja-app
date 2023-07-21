@@ -4,8 +4,8 @@ type OrderProps = {
   id?: string;
   customer_id: string;
   customer_name: string;
-  total: number;
-  OrderItem: OrderItem[];
+  total?: number;
+  order_items?: OrderItem[];
   created_at?: Date;
 };
 
@@ -14,7 +14,7 @@ export class Order {
   customer_id: string;
   customer_name: string;
   total: number;
-  OrderItem: OrderItem[];
+  order_items: OrderItem[];
   created_at?: Date;
 
   constructor(props: OrderProps) {
@@ -22,18 +22,21 @@ export class Order {
     this.customer_id = props.customer_id;
     this.customer_name = props.customer_name;
     this.total = props.total;
-    this.OrderItem = [];
+    this.order_items = props.order_items || [];
     this.created_at = props.created_at;
   }
 
-  addItem(orderItem: OrderItem) {
-    this.OrderItem.push(orderItem);
+  addItem(order_item: OrderItem) {
+    this.order_items.push(order_item);
   }
 
-  removeItem(orderItem: OrderItem) {
-    const index = this.OrderItem.indexOf(orderItem);
-    if (index !== -1) {
-      this.OrderItem.splice(index, 1);
-    }
+  removeItem(order_item: OrderItem) {
+    this.order_items = this.order_items.filter(
+      (item) => item.id === order_item.id,
+    );
+  }
+
+  getTotal() {
+    return this.order_items.reduce((total, item) => total + item.subtotal, 0);
   }
 }

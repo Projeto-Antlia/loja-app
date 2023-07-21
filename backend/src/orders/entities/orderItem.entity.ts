@@ -4,7 +4,8 @@ type OrderItemProps = {
   id?: string;
   product_id: string;
   product_name: string;
-  price: number;
+  subtotal: number;
+  quantity: number;
   created_at?: Date;
   updated_at?: Date;
 };
@@ -14,7 +15,7 @@ export class OrderItem {
   product_id: string;
   product_name: string;
   quantity: number;
-  price: number;
+  subtotal: number;
   created_at?: Date;
   updated_at?: Date;
 
@@ -25,25 +26,28 @@ export class OrderItem {
     this.updated_at = props.updated_at;
   }
 
-  addProduct(props: {
-    product_id: string;
-    product_name: string;
-    price: number;
-  }) {
-    if (!props.product_id || !props.product_id.trim()) {
-      throw new InvalidAttributeException('productId is required');
+  addProduct(props: OrderItemProps) {
+    const { product_id, product_name, quantity, subtotal } = props;
+
+    if (!product_id || !product_id.trim()) {
+      throw new InvalidAttributeException('product_id is required');
     }
 
-    if (!props.product_name || !props.product_name.trim()) {
-      throw new InvalidAttributeException('productName should not be empty');
+    if (!product_name || !product_name.trim()) {
+      throw new InvalidAttributeException('product_name should not be empty');
     }
 
-    if (!props.price) {
-      throw new InvalidAttributeException('price should not be empty');
+    if (!quantity || quantity <= 0) {
+      throw new InvalidAttributeException('quantity should not be empty');
     }
 
-    this.product_id = props.product_id;
-    this.product_name = props.product_name;
-    this.price = props.price;
+    if (!subtotal || subtotal <= 0) {
+      throw new InvalidAttributeException('quantity should not be empty');
+    }
+
+    this.product_id = product_id;
+    this.product_name = product_name;
+    this.quantity = quantity;
+    this.subtotal = subtotal;
   }
 }
