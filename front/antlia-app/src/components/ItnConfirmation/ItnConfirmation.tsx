@@ -5,17 +5,17 @@ interface IntConfirmationProps {
     title: string
     image: string
     descricao?: string
-    quantidade: string
+    quantidade: number
     valor: string
 }
 
-export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade }) => {
+export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade= 1 }) => {
     const toast = useToast();
-    const [quantity, setQuantity] = useState<number>(quantidade ? parseInt(quantidade) : 1);
+    const [quantity, setQuantity] = useState<number>( quantidade );
     // const [quantity, setQuantity] = useState<number>(1)
 
     const handleIncrement = () => {
-        // setQuantity(prevQuantity => prevQuantity + 1);
+        setQuantity(quantidade++)
         console.log(quantidade)
     };
 
@@ -33,7 +33,6 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
         valor: valor
     }
     descricao === '' ? descricao = 'Garrafinha' : descricao = descricao + ' ML'
-    quantidade === '' ? quantidade = quantidade + 1 : quantidade 
 
     return (
         <NativeBaseProvider>
@@ -56,7 +55,7 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                     {/* Quantidade */}
                     <Box w='30%' >
                         <HStack alignItems={'center'} w='80%' justifyContent={'space-around'} >
-                            <Button onPress={handleDecrement}> 
+                            <Button onPress={handleDecrement}>
                                 <Text>
                                     R
                                 </Text>

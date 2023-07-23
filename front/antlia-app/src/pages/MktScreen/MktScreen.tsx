@@ -2,6 +2,7 @@ import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@e
 import { Box, NativeBaseProvider, ScrollView, VStack, Image, Text } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/Stack';
+import axios, { isCancel, AxiosError } from 'axios';
 
 const coquinha = 'https://cbissn.ibict.br/index.php/imagens/1-galeria-de-imagens-01/detail/3-imagem-3-titulo-com-ate-45-caracteres?tmpl=component&phocadownload=1'
 const imageCoca = 'https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000'
@@ -15,6 +16,7 @@ import {
 import { ButtonFilter } from '../../components/ButtonFilter/ButtonFilter';
 import { CardItem } from '../../components/CardItem/CardItem';
 import Header from '../../components/Header/Header';
+import { useEffect, useState } from 'react';
 
 const data = [
     { title: 'Coca Cola lata', image: imageCoca, valor: '3,49', quantidade: '350' },
@@ -29,7 +31,7 @@ const data = [
     { title: 'Coca Cola lata', image: imageCoca, valor: '3,49', quantidade: '' },
 ]
 
-const categories = [
+const categoriesList = [
     {
         title: 'LANCHES',
         imagem: 'https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000'
@@ -44,6 +46,7 @@ const categories = [
     }
 ]
 export default function MktScreen() {
+
     const navigation = useNavigation<StackTypes>();
     const [fontLoaded] = useFonts({
         Rubik_400Regular,
@@ -53,6 +56,7 @@ export default function MktScreen() {
     if (!fontLoaded) {
         return null;
     }
+
 
     return (
         <NativeBaseProvider>
@@ -64,26 +68,43 @@ export default function MktScreen() {
                         <Categories />
                         <Products />
                     </VStack>
-                    <ButtonNext navigation={navigation}/>
+                    <ButtonNext navigation={navigation} />
                 </Box>
             </KeyboardAvoidingView>
         </NativeBaseProvider>
     )
 }
 
-const Categories = () => (
-    <Box display='flex' flexDirection='row' justifyContent='space-around' mt='10' >
-        {
-            categories.map((item, index) => (
-                <ButtonFilter
-                    key={index}
-                    title={item.title}
-                    image={item.imagem}
-                />
-            ))
-        }
-    </Box>
-)
+    type Category = {
+        id: string;
+        title: string;
+        imagem: string;
+    }
+
+const Categories = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
+    useEffect(() => {
+        axios.get('http://192.168.2.219:3000/categories').then(
+            (response) => {
+                console.log(response.data)
+                setCategories(response.data)
+            }
+        )
+    }, [])
+    return (
+        <Box display='flex' flexDirection='row' justifyContent='space-around' mt='10' >
+            {
+                categories.map((item, index) => (
+                    <ButtonFilter
+                        key={index}
+                        title={item.title}
+                        image={item.imagem}
+                    />
+                ))
+            }
+        </Box>
+    )
+}
 
 const Products = () => (
     <ScrollView ml='4.5%' h='67%'>
@@ -103,7 +124,7 @@ const Products = () => (
     </ScrollView>
 )
 
-const ButtonNext = ({navigation}: any) => (
+const ButtonNext = ({ navigation }: any) => (
     <Box bg='#ffbf1a' >
         <Pressable onPress={() => navigation.navigate("HndbScreen")}>
             <Box style={{ flexDirection: 'row', width: '100%', justifyContent: 'flex-end', alignItems: 'center' }} >

@@ -33,10 +33,10 @@ export default function HndbScreen() {
                     <DtlMoth />
                     <VStack h='85%' >
                         <ScrollView>
-                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={''} descricao={'350'} />
-                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={''} descricao={'350'} />
-                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={''} descricao={'350'} />
-                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={''} descricao={'350'} />
+                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
+                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
+                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
+                            <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
                         </ScrollView>
                     </VStack>
                 </Box>

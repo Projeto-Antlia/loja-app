@@ -1,0 +1,29 @@
+{
+    "categories": [
+        {
+            "id": "1",
+        "title": "LANCHES",
+        "imagem": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
+        },
+        {
+            "id": "2",
+            "title": "REFRIGERANTES",
+            "imagem": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
+        },
+        {
+            "id": "3",
+            "title": "CERVEJAS",
+            "imagem": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
+        }
+    ],
+    "comments": [
+        {
+            "id": 1,
+            "body": "some comment",
+            "postId": 1
+        }
+    ],
+    "profile": {
+        "name": "typicode"
+    }
+}
