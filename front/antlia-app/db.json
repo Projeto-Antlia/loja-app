@@ -2,28 +2,76 @@
     "categories": [
         {
             "id": "1",
-        "title": "LANCHES",
-        "imagem": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
+            "title": "BEBIDAS",
+            "image": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
         },
         {
             "id": "2",
             "title": "REFRIGERANTES",
-            "imagem": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
+            "image": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
         },
         {
             "id": "3",
             "title": "CERVEJAS",
-            "imagem": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
+            "image": "https://img.freepik.com/fotos-gratis/imagem-aproximada-da-cabeca-de-um-lindo-leao_181624-35855.jpg?w=2000"
         }
     ],
-    "comments": [
+    "products": [
         {
-            "id": 1,
-            "body": "some comment",
-            "postId": 1
+            "id": "1",
+            "category_id": "2",
+            "title": "Coca Cola Lata",
+            "image": "https://images.tcdn.com.br/img/img_prod/858764/refrigerante_coca_cola_zero_lata_350ml_c_12_365_1_20201021152513.jpg",
+            "valor": "3,50"
+        },
+        {
+            "id": "2",
+            "category_id": "2",
+            "title": "Coca Cola Caçula",
+            "image": "https://ibassets.com.br/ib.item.image.large/l-35a5140fa3be4698a85dbe302c407e30.jpeg",
+            "valor": "1,50"
+        },
+        {
+            "id": "3",
+            "category_id": "1",
+            "title": "Água com gás",
+            "image": "https://www.imigrantesbebidas.com.br/bebida/images/products/full/2894-agua-mineral-crystal-com-gas-500ml.jpg",
+            "valor": "1,70"
+        },
+        {
+            "id": "4",
+            "category_id": "1",
+            "title": "Toddynho",
+            "image": "https://deskontao.agilecdn.com.br/1136_1.jpg",
+            "valor": "1,70"
+        },
+        {
+            "id": "5",
+            "category_id": "3",
+            "title": "Spaten Lata",
+            "image": "https://images.tcdn.com.br/img/img_prod/858764/refrigerante_coca_cola_zero_lata_350ml_c_12_365_1_20201021152513.jpg",
+            "valor": "3,50"
+        },
+        {
+            "id": "6",
+            "category_id": "3",
+            "title": "Brahma Lata",
+            "image": "https://images.tcdn.com.br/img/img_prod/858764/refrigerante_coca_cola_zero_lata_350ml_c_12_365_1_20201021152513.jpg",
+            "valor": "3,50"
+        },
+        {
+            "id": "7",
+            "category_id": "3",
+            "title": "Skol Litrão",
+            "image": "https://images.tcdn.com.br/img/img_prod/858764/refrigerante_coca_cola_zero_lata_350ml_c_12_365_1_20201021152513.jpg",
+            "valor": "3,50"
+        },
+        {
+            "id": "8",
+            "category_id": "3",
+            "title": "Brahma Litrão",
+            "image": "https://images.tcdn.com.br/img/img_prod/858764/refrigerante_coca_cola_zero_lata_350ml_c_12_365_1_20201021152513.jpg",
+            "valor": "3,50"
         }
-    ],
-    "profile": {
-        "name": "typicode"
-    }
+    ]
 }

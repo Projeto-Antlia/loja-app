@@ -9,21 +9,12 @@ interface IntConfirmationProps {
     valor: string
 }
 
+
+
 export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade= 1 }) => {
     const toast = useToast();
-    const [quantity, setQuantity] = useState<number>( quantidade );
-    // const [quantity, setQuantity] = useState<number>(1)
+    const [quantity, setQuantity] = useState<number>(quantidade);
 
-    const handleIncrement = () => {
-        setQuantity(quantidade++)
-        console.log(quantidade)
-    };
-
-    const handleDecrement = () => {
-        if (quantity > 1) {
-            setQuantity(prevQuantity => prevQuantity - 1);
-        }
-    };
 
     const styles = {
         h3: title,
@@ -32,7 +23,18 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
         quantidade: quantidade,
         valor: valor
     }
+
     descricao === '' ? descricao = 'Garrafinha' : descricao = descricao + ' ML'
+
+    const increment = () => {
+        setQuantity(quantity + 1)
+    }
+
+    const decrement = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1)
+        }
+    }
 
     return (
         <NativeBaseProvider>
@@ -55,9 +57,9 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                     {/* Quantidade */}
                     <Box w='30%' >
                         <HStack alignItems={'center'} w='80%' justifyContent={'space-around'} >
-                            <Button onPress={handleDecrement}>
+                            <Button onPress={decrement}>
                                 <Text>
-                                    R
+                                    -
                                 </Text>
                             </Button>
                             {/* <Pressable onPress={handleDecrement}>
@@ -68,11 +70,11 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                                 />
                             </Pressable> */}
                             <Text color='#000' fontSize={35} style={{ fontFamily: 'Rubik_600SemiBold' }}>
-                                {quantidade}
+                                {quantity}
                             </Text>
-                            <Button onPress={handleIncrement}>
+                            <Button onPress={increment}>
                                 <Text>
-                                    A
+                                    +
                                 </Text>
                             </Button>
                             {/* <Pressable onPress={handleIncrement}>
