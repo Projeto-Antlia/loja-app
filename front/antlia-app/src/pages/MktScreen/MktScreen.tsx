@@ -1,9 +1,8 @@
-import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
 import { Box, NativeBaseProvider, ScrollView, VStack, Image, Text } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../routes/Stack';
 import axios, { isCancel, AxiosError } from 'axios';
-import {URL_API} from "../../env"
+import {URL_API} from "../../config"
 
 import {
     FlatList,
@@ -132,17 +131,3 @@ export default function MktScreen() {
     )
 }
 
-const ButtonNext = ({ navigation }: any) => (
-    <Box bg='#ffbf1a' >
-        <Pressable onPress={() => navigation.navigate("HndbScreen")}>
-            <Box style={{ flexDirection: 'row', width: '100%', justifyContent: 'flex-end', alignItems: 'center' }} >
-                <Text style={{ fontFamily: 'Rubik_600SemiBold', fontSize: 25, padding: 5 }}>
-                    CONTINUAR
-                </Text>
-                <Box style={{ backgroundColor: '#fff', height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image style={{ height: 50, width: 50 }} source={require('../../assets/VectorBCar.png')} alt="Vector Bag" />
-                </Box>
-            </Box>
-        </Pressable>
-    </Box>
-)
