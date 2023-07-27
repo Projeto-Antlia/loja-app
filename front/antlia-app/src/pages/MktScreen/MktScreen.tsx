@@ -1,19 +1,18 @@
-import { Box, NativeBaseProvider, ScrollView, VStack, Image, Text } from 'native-base';
+import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
 import { useNavigation } from '@react-navigation/native';
+import { Box, NativeBaseProvider, VStack } from 'native-base';
 import { StackTypes } from '../../routes/Stack';
-import axios, { isCancel, AxiosError } from 'axios';
-import {URL_API} from "../../config"
+import ButtonNext from '../../components/ButtonNext/buttonNext'
+import Categories from '../../components/Category/category'
+import Products from '../../components/Products/products'
+import theme from '../../theme';
 
 import {
-    FlatList,
-    KeyboardAvoidingView,
-    Pressable,
+    KeyboardAvoidingView
 } from 'react-native';
 
-import { ButtonFilter } from '../../components/ButtonFilter/ButtonFilter';
-import { CardItem } from '../../components/CardItem/CardItem';
+import { useState } from 'react';
 import Header from '../../components/Header/Header';
-import { useEffect, useState } from 'react';
 
 type Category = {
     id: string;
@@ -29,89 +28,17 @@ type Product = {
     valor: string;
 }
 
-
 export default function MktScreen() {
-    
     const [categorySelected, setCategorySelected] = useState<Category | undefined>(undefined);
-
     const navigation = useNavigation<StackTypes>();
     const [fontLoaded] = useFonts({
         Rubik_400Regular,
         Rubik_600SemiBold,
         Rubik_700Bold
     });
-    
+
     if (!fontLoaded) {
         return null;
-    }
-
-    const Categories = () => {
-        const [categories, setCategories] = useState<Category[]>([]);
-
-        useEffect(() => {
-
-            axios.get(`${URL_API}/categories`).then(res => {
-                setCategories(res.data);
-            })
-
-        }, [])
-
-        const handleIsActive = (cat: Category) => {
-            setCategorySelected(cat)
-        }
-
-        return (
-
-            <Box display='flex' flexDirection='row' justifyContent='space-around' mt='10' >
-                {
-                    categories.map((item, index) => (
-                        <ButtonFilter
-                            key={index}
-                            emit={handleIsActive}
-                            isActive={categorySelected?.id === item.id}
-                            category={item}
-                        />
-                    ))
-                }
-            </Box>
-        )
-    }
-
-    const Products = ({ categorySelected }: { categorySelected?: Category }) => {
-        const [products, setProducts] = useState<Product[]>([]);
-
-        useEffect(() => {
-
-            axios.get(`${URL_API}/products`).then(res => {
-                let products: Product[] = res.data;
-
-                if (categorySelected) {
-                    products = products.filter(prod => prod.category_id === categorySelected.id)
-                }
-
-                setProducts(products);
-            })
-
-        }, [])
-    
-        return (
-            <ScrollView ml='4.5%' h='67%'>
-                {
-                    <FlatList
-                        data={products}
-                        keyExtractor={(item) => item.id}
-                        numColumns={3}
-                        renderItem={({ item }) => (
-                            <CardItem
-                                title={item.title}
-                                image={item.image}
-                                valor={item.valor}
-                            />
-                        )}
-                    />
-                }
-            </ScrollView>
-        )
     }
 
     return (
@@ -119,9 +46,9 @@ export default function MktScreen() {
             <KeyboardAvoidingView
                 style={{ flex: 1 }}>
                 <Header />
-                <Box bg='#E9E9E9' alignItems='center' h='100%' flexGrow={1}>
+                <Box bg={theme.colors.background} alignItems='center' h='100%' flexGrow={1}>
                     <VStack w='90%'>
-                        <Categories />
+                        <Categories onCategorySelected={setCategorySelected} categorySelected={categorySelected} />
                         <Products categorySelected={categorySelected} />
                     </VStack>
                     <ButtonNext navigation={navigation} />
@@ -130,4 +57,3 @@ export default function MktScreen() {
         </NativeBaseProvider>
     )
 }
-

@@ -1,5 +1,5 @@
 import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
-import { Box, NativeBaseProvider, ScrollView, VStack, Image, Text, HStack, Spinner } from 'native-base';
+import { Box, NativeBaseProvider, VStack, Image, Spinner } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const coquinha = ('../../assets/coquinha.png')
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     },
     background: {
         ...StyleSheet.absoluteFillObject,
-        resizeMode:'cover',
+        resizeMode: 'cover',
         blurRadius: 1,
         // backgroundColor: 'rgba(255, 255, 255, 0.7)', // A cor com transparência cria o efeito de vidro
         backgroundColor: '#708090'

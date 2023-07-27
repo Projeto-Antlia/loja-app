@@ -2,19 +2,20 @@ import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@e
 import Metrics from './metrix';
 
 const fonts = {
-    regular: Rubik_400Regular,
-    semiBold: Rubik_600SemiBold,
-    bold: Rubik_700Bold
+    regular: 'Rubik_400Regular',
+    semiBold: 'Rubik_600SemiBold',
+    bold: 'Rubik_700Bold'
 };
 
 const colors = {
-    primary: '',
-    secondary: '',
-    textPrimary: '',
+    primary: '#ffbf1a',
+    secondary: '#502275;',
+    textPrimary: '#2B2B2B',
     borderColor: '',
-    white: '',
-    black: '',
-    grey: ''
+    white: '#fff',
+    black: '#000',
+    grey: '',
+    background: '#E9E9E9'
 };
 
 const size = {

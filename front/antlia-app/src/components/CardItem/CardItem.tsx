@@ -23,11 +23,6 @@ export const CardItem: React.FC<CardItemProps> = ({ title, image, valor, quantid
         toast.show({
             title: `${title} adicionado ao carrinho!`,
             placement: 'top-right'
-            // render: () => {
-            //     return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
-            //         {`${title} adicionado ao carrinho!`}
-            //     </Box>;
-            // }
         });
     }
     // modal aqui//

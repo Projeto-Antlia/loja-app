@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, useToast, Pressable, Button } from "native-base";
+import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, Pressable, Button } from "native-base";
+import theme from '../../theme';
 
 interface IntConfirmationProps {
     title: string
@@ -9,20 +10,9 @@ interface IntConfirmationProps {
     valor: string
 }
 
-
-
-export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade= 1 }) => {
-    const toast = useToast();
+export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade = 1 }) => {
     const [quantity, setQuantity] = useState<number>(quantidade);
-
-
-    const styles = {
-        h3: title,
-        image: image,
-        descricao: descricao,
-        quantidade: quantidade,
-        valor: valor
-    }
+    const isQuatityOne = quantity === 1;
 
     descricao === '' ? descricao = 'Garrafinha' : descricao = descricao + ' ML'
 
@@ -34,12 +24,16 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
         if (quantity > 1) {
             setQuantity(quantity - 1)
         }
-    }
+    };
+
+    const removeItem = () => {
+        window.alert('teste de remoção')
+    };
 
     return (
         <NativeBaseProvider>
             <KeyboardAvoidingView >
-                <HStack bg='#fff' p='2%' w='100%' h='150px' alignItems={'center'} justifyContent={'space-between'}>
+                <HStack bg={theme.colors.white} p='2%' w='100%' h='150px' alignItems={'center'} justifyContent={'space-between'}>
                     <Image
                         style={{ height: 120, width: 120 }}
                         src={image || ""}
@@ -50,40 +44,33 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                         <Text color='#626262' style={{ fontFamily: 'Rubik_400Regular' }}>
                             {title}{'\n'}{descricao}
                         </Text>
-                        <Text color='#2B2B2B' fontSize={20} style={{ fontFamily: 'Rubik_600SemiBold' }}>
+                        <Text color={theme.colors.textPrimary} fontSize={20} style={{ fontFamily: 'Rubik_600SemiBold' }}>
                             {`R$: ${valor}`}
                         </Text>
                     </Box>
-                    {/* Quantidade */}
                     <Box w='30%' >
                         <HStack alignItems={'center'} w='80%' justifyContent={'space-around'} >
-                            <Button onPress={decrement}>
-                                <Text>
-                                    -
-                                </Text>
-                            </Button>
-                            {/* <Pressable onPress={handleDecrement}>
-                                <Image
-                                    style={{ height: 45, width: 45 }}
-                                    source={require('../../assets/less.png')}
-                                    alt="Vector Bag"
-                                />
-                            </Pressable> */}
-                            <Text color='#000' fontSize={35} style={{ fontFamily: 'Rubik_600SemiBold' }}>
+                            {isQuatityOne ? (
+                                <Pressable onPress={removeItem}>
+                                    <Image source={require('../../assets/trash.png')} alt="Lixeira" />
+                                </Pressable>
+                            ) : (
+                                <>
+                                    <Button onPress={decrement} bg={theme.colors.primary} rounded={40} w='12' justifyContent={'center'}>
+                                        <Text style={{ fontFamily: 'Rubik_700Bold' }} >
+                                            -
+                                        </Text>
+                                    </Button>
+                                </>
+                            )}
+                            <Text color={theme.colors.black} fontSize={35} style={{ fontFamily: 'Rubik_600SemiBold' }}>
                                 {quantity}
                             </Text>
-                            <Button onPress={increment}>
-                                <Text>
+                            <Button onPress={increment} bg={theme.colors.primary} rounded={40} w='12'>
+                                <Text style={{ fontFamily: 'Rubik_700Bold' }}>
                                     +
                                 </Text>
                             </Button>
-                            {/* <Pressable onPress={handleIncrement}>
-                                <Image
-                                    style={{ height: 45, width: 45 }}
-                                    source={require('../../assets/plus.png')}
-                                    alt="Vector Bag"
-                                />
-                            </Pressable> */}
                         </HStack>
                     </Box>
                 </HStack>
