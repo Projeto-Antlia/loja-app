@@ -19,11 +19,10 @@ const Categories = ({ onCategorySelected, categorySelected }: Props) => {
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-
         axios.get(`${URL_API}/categories`).then(res => {
             setCategories(res.data);
         })
-
+        .catch(err => console.log("erro"))
     }, [])
 
     const handleIsActive = (cat: Category) => {
@@ -32,7 +31,7 @@ const Categories = ({ onCategorySelected, categorySelected }: Props) => {
 
     return (
 
-        <Box display='flex' flexDirection='row' justifyContent='space-around' mt='10' >
+        <Box display='flex' flexDirection='row' justifyContent='space-evenly' >
             {
                 categories.map((item, index) => (
                     <ButtonFilter

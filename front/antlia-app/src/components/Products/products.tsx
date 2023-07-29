@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { ScrollView, FlatList } from "native-base";
+import { ScrollView, FlatList, Box } from "native-base";
 import { URL_API } from "../../config";
 import { CardItem } from "../CardItem/CardItem";
+import { View } from "react-native";
 
 type Category = {
     id: string;
@@ -33,25 +34,25 @@ const Products = ({ categorySelected }: { categorySelected?: Category }) => {
             setProducts(products);
         })
 
-    }, [])
+    }, [categorySelected])
 
-    return (
-        <ScrollView ml='4.5%' h='67%'>
-            {
-                <FlatList
-                    data={products}
-                    keyExtractor={(item) => item.id}
-                    numColumns={3}
-                    renderItem={({ item }) => (
-                        <CardItem
-                            title={item.title}
-                            image={item.image}
-                            valor={item.valor}
-                        />
-                    )}
-                />
-            }
-        </ScrollView>
+    return (    
+        <FlatList
+            data={products}
+            keyExtractor={(item) => item.id}
+            numColumns={3}
+            style={{ flex: 1 }}
+            columnWrapperStyle={{ flex: 1, justifyContent: "space-around" }}
+            renderItem={({ item }) => (
+                <Box>
+                    <CardItem
+                        title={item.title}
+                        image={item.image}
+                        valor={item.valor}
+                    />
+                </Box>
+            )}
+        />
     )
 }
 

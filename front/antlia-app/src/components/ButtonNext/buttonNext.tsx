@@ -5,7 +5,7 @@ import theme from '../../theme/index'
 
 const ButtonNext = ({ navigation }: any) => (
     <Box bg={theme.colors.primary}  >
-        <Pressable onPress={() => navigation.navigate("HndbScreen")}>
+        <Pressable onPress={() => navigation.navigate("CartScreen")}>
             <Box style={{ flexDirection: 'row', width: '100%', justifyContent: 'flex-end', alignItems: 'center' }} >
                 <Text style={{ fontFamily: theme.fonts.semiBold, fontSize: 25, padding: 5 }}>
                     CONTINUAR

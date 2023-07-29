@@ -27,7 +27,6 @@ export const CardItem: React.FC<CardItemProps> = ({ title, image, valor, quantid
     }
     // modal aqui//
     ;
-    quantidade === '' ? quantidade = 'Garrafinha' : quantidade = quantidade + ' ML'
     const valorText = isPressed ? 'Adicionado' : `R$: ${valor}`;
 
     return (
