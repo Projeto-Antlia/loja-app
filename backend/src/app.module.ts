@@ -7,6 +7,7 @@ import { ShareModule } from './_share/share.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { RouterModule } from '@nestjs/core';
 import { OrdersModule } from './orders/orders.module';
+import { InvoicesModule } from './invoices/invoices.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { OrdersModule } from './orders/orders.module';
       },
     ]),
     OrdersModule,
+    InvoicesModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

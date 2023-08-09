@@ -5,13 +5,15 @@ import { Order } from '../entities/order.entity';
 import { OrderItem } from '../entities/orderItem.entity';
 import { OrderRepository } from '../repository/order.repository';
 import { ResourceNotFoundException } from 'src/_share/resource-not-found-exception';
+import { InvoicesService } from 'src/invoices/service/invoices.service';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @Inject('OrderRepository')
-    private readonly orderReposity: OrderRepository,
+    private readonly orderRepository: OrderRepository,
     private readonly productService: ProductsService,
+    private readonly invoicesService: InvoicesService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -22,16 +24,16 @@ export class OrdersService {
       customer_name,
     });
 
-    for (let i = 0; i < order_items.length; i++) {
+    for (const index in order_items)  {
       const product = await this.productService.findOne(
-        order_items[i].product_id,
+        order_items[index].product_id,
       );
 
       const productItem = new OrderItem({
         product_id: product.id,
         product_name: product.name,
-        quantity: order_items[i].quantity,
-        subtotal: product.price * order_items[i].quantity,
+        quantity: order_items[index].quantity,
+        subtotal: product.price * order_items[index].quantity,
       });
 
       order.addItem(productItem);
@@ -39,15 +41,17 @@ export class OrdersService {
 
     order.total = order.getTotal();
 
-    return await this.orderReposity.create(order);
+    const orderCreated = await this.orderRepository.create(order);
+    this.invoicesService.addTransaction(orderCreated)
+    return orderCreated;
   }
 
   async findAll() {
-    return this.orderReposity.findAll();
+    return this.orderRepository.findAll();
   }
 
   async findOne(id: string) {
-    const order = this.orderReposity.findById(id);
+    const order = this.orderRepository.findById(id);
     if (!order) throw new ResourceNotFoundException('Order');
     return order;
   }
