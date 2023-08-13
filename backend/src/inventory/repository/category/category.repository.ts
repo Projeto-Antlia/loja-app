@@ -1,7 +1,6 @@
 import { Category } from 'src/inventory/entities';
 
 export const CATEGORY_NAME_PROVIDER = 'CategoryRepository';
-
 export interface CategoryRepository {
   create(category: Category): Promise<Category>;
   findAll(): Promise<Category[]>;

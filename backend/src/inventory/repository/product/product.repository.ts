@@ -1,5 +1,7 @@
 import { Image, Product } from 'src/inventory/entities';
 
+export const PRODUCT_NAME_PROVIDER = 'ProductRepository';
+
 export interface ProductRepository {
   create(product: Product): Promise<Product>;
   findAll(): Promise<Product[]>;

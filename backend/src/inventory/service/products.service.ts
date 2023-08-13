@@ -52,10 +52,11 @@ export class ProductsService {
   async update(product_id: string, updateProductDto: UpdateProductDto) {
     const product = await this.findOne(product_id);
 
-    if (
-      updateProductDto.category_id &&
-      updateProductDto.category_id !== product.category_id
-    ) {
+    if (!updateProductDto.category_id) {
+      throw new BusinessRuleException('the product must have a category');
+    }
+
+    if (updateProductDto.category_id !== product.category_id) {
       const category = await this.categoriesService.findOne(
         updateProductDto.category_id,
       );

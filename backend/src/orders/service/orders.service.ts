@@ -12,8 +12,7 @@ export class OrdersService {
   constructor(
     @Inject('OrderRepository')
     private readonly orderRepository: OrderRepository,
-    private readonly productService: ProductsService,
-    private readonly invoicesService: InvoicesService,
+    private readonly productService: ProductsService, // private readonly invoicesService: InvoicesService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -24,7 +23,7 @@ export class OrdersService {
       customer_name,
     });
 
-    for (const index in order_items)  {
+    for (const index in order_items) {
       const product = await this.productService.findOne(
         order_items[index].product_id,
       );
@@ -42,7 +41,7 @@ export class OrdersService {
     order.total = order.getTotal();
 
     const orderCreated = await this.orderRepository.create(order);
-    this.invoicesService.addTransaction(orderCreated)
+    // this.invoicesService.addTransaction(orderCreated);
     return orderCreated;
   }
 
