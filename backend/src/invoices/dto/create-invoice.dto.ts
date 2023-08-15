@@ -8,5 +8,4 @@ export class CreateInvoiceDto {
     @IsNotEmpty()
     @Length(3, 100)
     customer_name: string;
-
 }

@@ -1,12 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateInvoiceDto } from '../dto/create-invoice.dto';
-import { UpdateInvoiceDto } from '../dto/update-invoice.dto';
 import { Order } from 'src/orders/entities/order.entity';
-import { BillStatus, Invoice } from '../entities/invoice.entity';
+import { BillStatus, Invoice, PayStatus } from '../entities/invoice.entity';
 import { InvoiceRepository } from '../repository/invoice.repository';
 import { BusinessRuleException } from 'src/_share/business-rule-exception';
-
-const BILLING_OPEN_DAY = 20;
+import { ResourceNotFoundException } from 'src/_share/resource-not-found-exception';
 
 @Injectable()
 export class InvoicesService {
@@ -28,8 +26,8 @@ export class InvoicesService {
 
     const invoice = new Invoice({
       customer_id: createInvoiceDto.customer_id,
-      customer_name: createInvoiceDto.customer_name,
       bill_status: BillStatus.OPENDED,
+      pay_status: PayStatus.PENDING,
       start_at: new Date(),
     });
 
@@ -47,8 +45,14 @@ export class InvoicesService {
   }
 
   async addTransaction(order: Order) {
-    const invoice = await this.findOpenedInvoiceByCustomerId(order.customer_id);
-    invoice.addItem(order);
+    let invoice = await this.findOpenedInvoiceByCustomerId(order.customer_id);
+    
+    invoice.addItem({
+      order_id: order.id,
+      price: order.getTotal(),
+      created_at: new Date()
+    });
+
     await this.invoiceRepository.update(invoice);
   }
 
@@ -68,19 +72,14 @@ export class InvoicesService {
     return invoice;
   }
 
-  findAll() {
-    return `This action returns all invoices`;
+  findAllByCustomerId(customer_id: string) {
+    return this.invoiceRepository.findAllByCustomerId(customer_id);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} invoice`;
+  findOne(invoice_id: string) {
+    const invoice = this.invoiceRepository.findById(invoice_id);
+    if (!invoice) throw new ResourceNotFoundException('Invoice');
+    return invoice;
   }
 
-  update(id: number, updateInvoiceDto: UpdateInvoiceDto) {
-    return `This action updates a #${id} invoice`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} invoice`;
-  }
 }
