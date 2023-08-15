@@ -1,19 +1,23 @@
+import { Type } from 'class-transformer';
 import {
+  ArrayMinSize,
+  IsArray,
   IsNotEmpty,
   IsNumber,
   IsUUID,
   Length,
   Max,
   Min,
+  ValidateNested,
 } from 'class-validator';
 
 class CreateOrderItemDto {
   @IsUUID()
   product_id: string;
 
-  @IsNotEmpty()
-  @Length(3, 100)
-  product_name: string;
+  // @IsNotEmpty()
+  // @Length(3, 100)
+  // product_name: string;
 
   @IsNotEmpty()
   @IsNumber({ maxDecimalPlaces: 0 })
@@ -30,12 +34,9 @@ export class CreateOrderDto {
   @Length(3, 100)
   customer_name: string;
 
-  // @IsNotEmpty()
-  // @IsNumber({ maxDecimalPlaces: 2 })
-  // @Min(0.01)
-  // @Max(999999999.99)
-  // total: number;
-
-  @IsNotEmpty()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @ArrayMinSize(1)
+  @Type(() => CreateOrderItemDto)
   order_items: CreateOrderItemDto[];
 }

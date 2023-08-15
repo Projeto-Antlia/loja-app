@@ -6,7 +6,7 @@ GET http://localhost:3000/
 GET http://localhost:3000/inventory/categories/
 
 ### BUSCAR CATEGORIA PELO ID
-GET http://localhost:3000/inventory/categories/10f9e2b9-e1cb-457f-9913-6689f404fbcc
+GET http://localhost:3000/inventory/categories/3b402dd5-a1fe-4b09-b7f8-6560d071abc5
 
 
 ### CRIAR NOVA CATEGORIA
@@ -18,17 +18,17 @@ Content-Type: application/json
 }
 
 ### ATUALIZAR CATEGORIA
-PUT http://localhost:3000/inventory/categories/3c8276a4-3107-40b7-b4f7-2d64fc387dfb
+PUT http://localhost:3000/inventory/categories/3b402dd5-a1fe-4b09-b7f8-6560d071abc5
 Content-Type: application/json
 
 {
-    "name":"LANCHES",
+    "name":"REFRIGERANTES",
     "enable":false,
     "show_menu":false
 }
 
 ### DELETAR CATEGORIA
-DELETE  http://localhost:3000/inventory/categories/a91d8114-1916-4b2a-bcda-00c396a29eae
+DELETE  http://localhost:3000/inventory/categories/3b402dd5-a1fe-4b09-b7f8-6560d071abc5
 
 
 ### CADASTRAR PRODUTO
@@ -36,29 +36,30 @@ POST http://localhost:3000/inventory/products
 Content-Type: application/json
 
 {
-    "category_id":"cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c",
-    "name":"X SALADA",
-    "price": 6.50
+    "category_id":"3b402dd5-a1fe-4b09-b7f8-6560d071abc5",
+    "name":"FANTA UVA LATA 350ML",
+    "price": 3.50
 }
 
 ### LISTAR TODOS OS PRODUTOS
 GET http://localhost:3000/inventory/products
 
 ### LISTAR TODOS OS PRODUTOS POR CATEGORIA
-GET http://localhost:3000/inventory/products?category_id=cf18d9ae-24e8-40cf-9bcb-fdd7a3005f2c
+GET http://localhost:3000/inventory/products?category_id=3b402dd5-a1fe-4b09-b7f8-6560d071abc5
 
 
 ### BUSCAR PRODUTO PELO ID
-GET http://localhost:3000/inventory/products/2aa4d90e-0e11-4d67-840c-fcb772e77151
+GET http://localhost:3000/inventory/products/b2cc3f53-f287-4380-99cf-33b576db8d4e
 
 
 ### ATUALIZAR PRODUTO
-PUT http://localhost:3000/inventory/products/c7fa804e-0c31-4108-a059-f6412bf83f53
+PUT http://localhost:3000/inventory/products/b2cc3f53-f287-4380-99cf-33b576db8d4e
 Content-Type: application/json
 
 {
-    "name":"SPRITE LATA 350ML",
-    "price": 4.50
+    "name":"COCA COLA LATA 350ML",
+    "category_id": "3b402dd5-a1fe-4b09-b7f8-6560d071abc5",
+    "price": 3.50
 }
 
 
@@ -69,8 +70,21 @@ Content-Type: application/json
 
 {
     "customer_id":"c7fa804e-0c31-4108-a059-f6412bf83f53",
-    "customer_name":"Thiagao da massa",
-    "total": 10.01
+    "customer_name":"Thiago Alves",
+    "order_items": [
+        {
+            "product_id": "b2cc3f53-f287-4380-99cf-33b576db8d4e",
+            "quantity": 2
+        },
+        {
+            "product_id": "888c2b77-db34-4f7a-99e6-63851a0661f1",
+            "quantity": 2
+        },
+        {
+            "product_id": "a6da8219-5ffa-4cbd-9803-2debb6e9de94",
+            "quantity": 1
+        }
+    ]
 }
 
 ###
