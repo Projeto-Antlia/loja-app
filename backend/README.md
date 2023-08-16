@@ -7,3 +7,4 @@
 4. `$ yarn start:dev`
 
 if prisma errors, please delete directory `./prisma/migrations`
+nvoos
