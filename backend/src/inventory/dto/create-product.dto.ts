@@ -12,7 +12,7 @@ export class CreateProductDto {
   category_id: string;
 
   @IsNotEmpty()
-  @Length(3, 20)
+  @Length(3, 30)
   name: string;
 
   @IsNotEmpty()

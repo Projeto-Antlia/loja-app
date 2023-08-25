@@ -1,22 +1,31 @@
-import { CategoryRepository } from './category/category.repository';
-import { ProductRepository } from './product/product.repository';
+import {
+  CategoryRepository,
+  CATEGORY_NAME_PROVIDER,
+} from './category/category.repository';
+
+import {
+  ProductRepository,
+  PRODUCT_NAME_PROVIDER,
+} from './product/product.repository';
 
 // Implementations
-import { ProductSqLiteRepository } from './product/product-sqlite.repository';
-import { CategorySqLiteRepository } from './category/category-sqlite.repository';
+import { ProductMysqlRepository } from './product/product-mysql.repository';
+import { CategoryMysqlRepository } from './category/category-mysql.repository';
 
-export const CATEGORY_NAME_PROVIDER = 'CategoryRepository';
-export const PRODUCT_NAME_PROVIDER = 'ProductRepository';
-
-export const CategoryRepositoryProvider = {
+const CategoryRepositoryProvider = {
   provide: CATEGORY_NAME_PROVIDER,
-  useClass: CategorySqLiteRepository,
+  useClass: CategoryMysqlRepository,
 };
 
-export const ProductRepositoryProvider = {
+const ProductRepositoryProvider = {
   provide: PRODUCT_NAME_PROVIDER,
-  useClass: ProductSqLiteRepository,
+  useClass: ProductMysqlRepository,
 };
 
 // Interfaces
-export { CategoryRepository, ProductRepository };
+export {
+  CategoryRepository,
+  ProductRepository,
+  CategoryRepositoryProvider,
+  ProductRepositoryProvider,
+};
