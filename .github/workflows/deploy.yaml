@@ -16,4 +16,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            ./build.sh
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/id_ed25519_github
+            cd antlia/
+            make prod
