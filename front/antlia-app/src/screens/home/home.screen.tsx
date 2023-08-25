@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Header from '../../components/Header/Header';
 import { StackTypes } from '../../routes/Stack';
+import HeaderHome from '../../components/Header/HeaderHome';
 
 export default function Home() {
     const navigation = useNavigation<StackTypes>();
@@ -28,7 +29,7 @@ export default function Home() {
         <KeyboardAvoidingView
             style={{ flex: 1 }}
         >
-            <Header />
+           <HeaderHome />
             <Box py="4" maxWidth="100%" backgroundColor="6a51ae" alignItems='center'>
                 <VStack justifyContent="space-between" w='80%'>
                     <Text fontSize="80" color="#2b2b2b" style={{ fontFamily: 'Rubik_600SemiBold' }} textAlign='center'>

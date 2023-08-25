@@ -13,6 +13,7 @@ import {
 
 import { useState } from 'react';
 import Header from '../../components/Header/Header';
+import HeaderMarket from '../../components/Header/HeaderMarket';
 
 type Category = {
     id: string;
@@ -54,7 +55,7 @@ export default function MktScreen() {
     return (
         <>
             <Box style={styles.container}>
-                <Header />
+                <HeaderMarket />
                 <Container >
                     <Categories onCategorySelected={setCategorySelected} categorySelected={categorySelected} />
                     <Products categorySelected={categorySelected} />
