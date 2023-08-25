@@ -8,6 +8,9 @@ import {
 import Home from "../screens/home/home.screen";
 import MarketScreen from '../screens/market/market.screen';
 import CartScreen from '../screens/cart/cart.screen';
+import SplashScreen from '../screens/splash/SplashScreen';
+import RestScreen from '../screens/rest/RestScreen';
+// import RestScreen from '../screens/Rest/RestScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +28,8 @@ export default function StackComponent() {
         <NavigationContainer>
             <Stack.Navigator>
                 {/* Adicione outras telas aqui, se necessário */}
+                <Stack.Screen name="Rest" component={RestScreen} options={{ headerShown: false }} />
+                {/* <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} /> */}
                 <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                 <Stack.Screen name="MarketScreen" component={MarketScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />

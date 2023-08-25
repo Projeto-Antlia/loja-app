@@ -1,5 +1,5 @@
 import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
-import { Box, NativeBaseProvider, VStack, Image, Spinner } from 'native-base';
+import { Box, NativeBaseProvider, ScrollView, VStack, Image, Text, HStack, Spinner } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const coquinha = ('../../assets/coquinha.png')
