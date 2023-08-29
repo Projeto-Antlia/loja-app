@@ -7,7 +7,7 @@ import { ButtonFilter } from "../ButtonFilter/ButtonFilter";
 
 type Category = {
     id: string;
-    title: string;
+    name: string;
     image: string;
 }
 type Props = {
@@ -19,7 +19,8 @@ const Categories = ({ onCategorySelected, categorySelected }: Props) => {
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-        axios.get(`${URL_API}/categories`).then(res => {
+        const url = `${URL_API}inventory/categories`
+        axios.get(url).then(res => {
             setCategories(res.data);
         })
         .catch(err => console.log("erro"))

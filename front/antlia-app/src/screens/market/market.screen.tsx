@@ -1,30 +1,25 @@
 import { useNavigation } from '@react-navigation/native';
 import { Box } from 'native-base';
+import ButtonNext from '../../components/ButtonNext/buttonNext';
+import Categories from '../../components/Category/category';
+import Container from '../../components/Container/Container';
+import Products from '../../components/Products/products';
 import { StackTypes } from '../../routes/Stack';
-import ButtonNext from '../../components/ButtonNext/buttonNext'
-import Categories from '../../components/Category/category'
-import Products from '../../components/Products/products'
-import theme from '../../theme';
-import Container from '../../components/Container/Container'
 
-import {
-    KeyboardAvoidingView
-} from 'react-native';
 
 import { useState } from 'react';
-import Header from '../../components/Header/Header';
 import HeaderMarket from '../../components/Header/HeaderMarket';
 
 type Category = {
     id: string;
-    title: string;
+    name: string;
     image: string;
 }
 
 type Product = {
     id: string;
     category_id: string;
-    title: string;
+    name: string;
     image: string;
     valor: string;
 }

@@ -2,43 +2,50 @@ import { HStack, NativeBaseProvider, Pressable, Text, Image, useToast } from 'na
 import React, { useState } from 'react';
 
 interface CardItemProps {
-    title: string;
+    name: string;
     image: string;
-    // link?: string;
     quantidade?: string;
-    valor?: string;
+    price?: string;
 }
 
-export const CardItem: React.FC<CardItemProps> = ({ title, image, valor, quantidade, }) => {
+export const CardItem: React.FC<CardItemProps> = ({ name, image, price, quantidade, }) => {
     const toast = useToast();
     const buttonStyles = {
-        h3: title,
+        h3: name,
         image: image,
-        valor: valor,
+        price: price,
         quantidade: quantidade
     };
     const [isPressed, setIsPressed] = useState(false);
     const handlePress = () => {
         setIsPressed(true);
         toast.show({
-            title: `${title} adicionado ao carrinho!`,
+            title: `${name} adicionado ao carrinho!`,
             placement: 'top-right'
         });
     }
     // modal aqui//
     ;
-    const valorText = isPressed ? 'Adicionado' : `R$: ${valor}`;
+    const valorText = isPressed ? 'Adicionado' : `R$: ${price}`;
 
     return (
         <NativeBaseProvider>
             <Pressable h='250' w='200' onPress={handlePress} rounded="8" bg="#ffff" marginBottom={10} shadow="9" display='flex' flexDirection='column' justifyContent="space-around">
                 <HStack alignItems={'center'} flexDirection='column' >
-                    <Image style={{ height: 120, width: 120 }}
-                        src={image || ""}
-                        alt="Vector Bag"
+                    {console.log('imagem ----->', image)}
+                    <Image 
+                        style={{ height: 120, width: 120 }}
+                        source={{
+                            uri: image,
+                            method: 'GET',
+                            headers: {
+                                Pragma: 'no-cache',
+                            },
+                        }}
+                        alt="Alternate Text" 
                     />
                     <Text color="#000" style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15" textAlign={'center'}>
-                        {title}{'\n'}{quantidade}
+                        {name}{'\n'}{quantidade}
                     </Text>
                     <Text bg={isPressed ? '#FFF' : "#ffbf1A"} color={isPressed ? '#22831A' : "#000"} borderWidth="0" w='4/6' rounded="lg" textAlign={'center'} style={{ fontFamily: 'Rubik_700Bold' }}>
                         {valorText}

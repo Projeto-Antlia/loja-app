@@ -56,8 +56,8 @@ export default function HndbScreen() {
                         <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
                         <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
                         <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
+                        <ModalQuant />
                     </ScrollView>
-                    <ModalQuant />
                 </VStack>
             </Box>
             <TotalMkt />

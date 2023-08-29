@@ -7,16 +7,16 @@ import { View } from "react-native";
 
 type Category = {
     id: string;
-    title: string;
+    name: string;
     image: string;
 }
 
 type Product = {
     id: string;
     category_id: string;
-    title: string;
+    name: string;
     image: string;
-    valor: string;
+    price: string;
 }
 
 const Products = ({ categorySelected }: { categorySelected?: Category }) => {
@@ -24,7 +24,7 @@ const Products = ({ categorySelected }: { categorySelected?: Category }) => {
 
     useEffect(() => {
 
-        axios.get(`${URL_API}/products`).then(res => {
+        axios.get(`${URL_API}inventory/products`).then(res => {
             let products: Product[] = res.data;
 
             if (categorySelected) {
@@ -36,6 +36,7 @@ const Products = ({ categorySelected }: { categorySelected?: Category }) => {
 
     }, [categorySelected])
 
+    
     return (    
         <FlatList
             data={products}
@@ -46,9 +47,9 @@ const Products = ({ categorySelected }: { categorySelected?: Category }) => {
             renderItem={({ item }) => (
                 <Box>
                     <CardItem
-                        title={item.title}
-                        image={item.image}
-                        valor={item.valor}
+                        name={item.name}
+                        image={`${URL_API}inventory/products/${item.id}/image`}
+                        price={parseFloat(item.price).toFixed(2)}
                     />
                 </Box>
             )}

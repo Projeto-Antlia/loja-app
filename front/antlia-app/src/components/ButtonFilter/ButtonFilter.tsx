@@ -4,9 +4,17 @@ import theme from '../../theme';
 
 type Category = {
     id: string;
-    title: string;
+    name: string;
     image: string;
 }
+
+// const icon_map = {
+//     "BEBIDA": "",
+//     "LANCHES": "ICON"
+// }
+
+// // iteração
+// icon_map[item.name]
 
 interface ButtonFilterProps {
     category: Category;
@@ -16,7 +24,7 @@ interface ButtonFilterProps {
 
 export const ButtonFilter: React.FC<ButtonFilterProps> = ({ category, emit, isActive = false }) => {
 
-    const { title, image } = category;
+    const { name, image } = category;
 
     const handlePress = () => {
         emit(category);
@@ -32,7 +40,7 @@ export const ButtonFilter: React.FC<ButtonFilterProps> = ({ category, emit, isAc
                     alt="Vector Bag"
                 />
                 <Text color={theme.colors.black} style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15">
-                    {title}
+                    {name}
                 </Text>
             </VStack>
         </Pressable>
