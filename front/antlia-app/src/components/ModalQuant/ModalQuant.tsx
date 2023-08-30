@@ -7,7 +7,27 @@ import { ItnConfirmation } from "../ItnConfirmation/ItnConfirmation";
 const newLocal = 'https://cbissn.ibict.br/index.php/imagens/1-galeria-de-imagens-01/detail/3-imagem-3-titulo-com-ate-45-caracteres?tmpl=component&phocadownload=1';
 const coquinha = newLocal;
 
-export default function ModalQuant() {
+interface ModalQuantProps {
+    isVisible: true
+    name: string
+    image: string
+    price: string | undefined
+    quantidade: string | undefined
+    closeModal: () => void
+};
+
+export const ModalQuant: React.FC<ModalQuantProps> = ({
+    isVisible,
+    closeModal,
+    name,
+    image,
+    price,
+    quantidade,
+}) => {
+    if (!isVisible) {
+        return null;
+    }
+
     const [modalVisible, setModalVisible] = useState(false);
 
     const abrirModal = () => {
@@ -18,20 +38,20 @@ export default function ModalQuant() {
         setModalVisible(false);
     }
 
-    const lidarComPressaoNoModal = (event) => {
+    const lidarComPressaoNoModal = (event: any) => {
         // Impede que o evento de pressão se propague para os componentes pai
         event.stopPropagation();
     }
 
     return (
         <KeyboardAvoidingView>
-            <Pressable onPress={abrirModal}>
+            {/* <Pressable onPress={abrirModal}>
                 <Box bg={'red'} h='100px' alignItems={'center'} justifyContent={'center'}>
                     <Text color={theme.colors.black} style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize='25'>
                         CARD Quantidade
                     </Text>
                 </Box>
-            </Pressable>
+            </Pressable> */}
             <Modal
                 animationType="fade"
                 transparent={true}

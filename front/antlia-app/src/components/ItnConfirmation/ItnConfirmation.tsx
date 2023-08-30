@@ -7,7 +7,7 @@ interface IntConfirmationProps {
     image: string
     descricao?: string
     quantidade: number
-    valor: string
+    valor: string | undefined
 }
 
 export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade = 1 }) => {
@@ -42,7 +42,8 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                     <Divider thickness="2" orientation="vertical" />
                     <Box >
                         <Text color='#626262' style={{ fontFamily: 'Rubik_400Regular' }}>
-                            {title}{'\n'}{descricao}
+                            {title}{'\n'}
+                            {/* {descricao} */}
                         </Text>
                         <Text color={theme.colors.textPrimary} fontSize={20} style={{ fontFamily: 'Rubik_600SemiBold' }}>
                             {`R$: ${valor}`}

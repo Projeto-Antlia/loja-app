@@ -1,14 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { Box } from 'native-base';
+import { useState } from 'react';
 import ButtonNext from '../../components/ButtonNext/buttonNext';
 import Categories from '../../components/Category/category';
 import Container from '../../components/Container/Container';
+import HeaderMarket from '../../components/Header/HeaderMarket';
 import Products from '../../components/Products/products';
 import { StackTypes } from '../../routes/Stack';
-
-
-import { useState } from 'react';
-import HeaderMarket from '../../components/Header/HeaderMarket';
 
 type Category = {
     id: string;

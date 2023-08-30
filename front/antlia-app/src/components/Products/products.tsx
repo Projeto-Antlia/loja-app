@@ -1,9 +1,8 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { ScrollView, FlatList, Box } from "native-base";
+import { Box, FlatList } from "native-base";
+import { useEffect, useState } from "react";
 import { URL_API } from "../../config";
 import { CardItem } from "../CardItem/CardItem";
-import { View } from "react-native";
 
 type Category = {
     id: string;

@@ -30,7 +30,7 @@ export default function StackComponent() {
                 {/* Adicione outras telas aqui, se necessário */}
                 {/* <Stack.Screen name="Rest" component={RestScreen} options={{ headerShown: false }} /> */}
                 {/* <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} /> */}
-                {/* <Stack.Screen name="MarketScreen" component={MarketScreen} options={{ headerShown: false }} /> */}
+                <Stack.Screen name="MarketScreen" component={MarketScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>

@@ -8,14 +8,6 @@ type Category = {
     image: string;
 }
 
-// const icon_map = {
-//     "BEBIDA": "",
-//     "LANCHES": "ICON"
-// }
-
-// // iteração
-// icon_map[item.name]
-
 interface ButtonFilterProps {
     category: Category;
     emit: (category: Category) => void;
@@ -37,8 +29,7 @@ export const ButtonFilter: React.FC<ButtonFilterProps> = ({ category, emit, isAc
             <VStack justifyContent="space-around" alignItems={'center'}>
                 <Image style={{ height: 70, width: 70 }}
                     src={image || ""}
-                    alt="Vector Bag"
-                />
+                    alt="Vector Bag" />
                 <Text color={theme.colors.black} style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15">
                     {name}
                 </Text>

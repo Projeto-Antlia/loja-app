@@ -1,19 +1,12 @@
 import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
-import { Box, ScrollView, VStack, Image, Text, Button } from 'native-base';
-
-const coquinha = 'https://cbissn.ibict.br/index.php/imagens/1-galeria-de-imagens-01/detail/3-imagem-3-titulo-com-ate-45-caracteres?tmpl=component&phocadownload=1'
-const imageCoca = ('../../assets/coca.png')
-
-import {
-    FlatList,
-    KeyboardAvoidingView,
-} from 'react-native';
-
+import { Box, ScrollView, VStack } from 'native-base';
+import { KeyboardAvoidingView } from 'react-native';
 import DtlMoth from '../../components/DtlMoth/DtlMoth';
+import HeaderBag from '../../components/Header/HeaderBag';
 import { ItnConfirmation } from '../../components/ItnConfirmation/ItnConfirmation';
 import TotalMkt from '../../components/TotalMkt/TotalMkt';
-import ModalQuant from '../../components/ModalQuant/ModalQuant';
-import HeaderBag from '../../components/Header/HeaderBag';
+const coquinha = 'https://cbissn.ibict.br/index.php/imagens/1-galeria-de-imagens-01/detail/3-imagem-3-titulo-com-ate-45-caracteres?tmpl=component&phocadownload=1'
+const imageCoca = ('../../assets/coca.png')
 
 
 export default function HndbScreen() {
@@ -56,7 +49,6 @@ export default function HndbScreen() {
                         <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
                         <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
                         <ItnConfirmation title={'Coca Cola Lata'} image={coquinha} valor={'7,00'} quantidade={1} descricao={'350'} />
-                        <ModalQuant />
                     </ScrollView>
                 </VStack>
             </Box>
