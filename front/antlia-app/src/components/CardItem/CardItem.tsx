@@ -1,29 +1,47 @@
-import { HStack, NativeBaseProvider, Pressable, Text, Image, useToast, Box, VStack } from 'native-base';
-import React, { useState } from 'react';
-import { ModalQuant } from '../ModalQuant/ModalQuant';
+import { HStack, NativeBaseProvider, Pressable, Text, Image, useToast, Box, VStack, Button, FlatList } from 'native-base';
+import React, { useEffect, useState } from 'react';
+//import { ModalQuant } from '../ModalQuant/ModalQuant';
 import { Modal, TouchableOpacity, View } from 'react-native';
 import theme from '../../theme';
 import { ItnConfirmation } from '../ItnConfirmation/ItnConfirmation';
+import { CartItem, useCart } from '../../contexts/CartContext';
 
 interface CardItemProps {
+    id:string;
     name: string;
+    category_id:string;
     image: string;
-    quantidade?: string;
+    quantidade?: number;
     price?: string;
 }
 
-export const CardItem: React.FC<CardItemProps> = ({ name, image, price, quantidade, }) => {
-    const [modalVisible, setModalVisible] = useState(false);
+interface CartState {
+    [id_product:string]: CartItem;
+}
 
+export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, price, quantidade, }) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [quantity, setQuantity] = useState<number>(1);
+    const [index, setIndex]=useState<number>(1);
+    const {cartState, cartDispatch } = useCart();
+    const isItemInCart = id in cartState.items;
+    
+    const handleChildQuantity = (value: number) => {
+        console.log('Valor HandleQuantity', value);
+        setQuantity(value);
+    }
+    
+    const handleRemoveItem = () =>{
+        fecharModal();
+    }
+    
     const abrirModal = () => {
         setModalVisible(true); 
-        setIsPressed(true)
     };
 
     const fecharModal = () => {
         setModalVisible(false);
     };
-
 
     // const buttonStyles = {
     //     h3: name,
@@ -31,19 +49,34 @@ export const CardItem: React.FC<CardItemProps> = ({ name, image, price, quantida
     //     price: price,
     //     quantidade: quantidade
     // };
-    const [isPressed, setIsPressed] = useState(false);
 
     const lidarComPressaoNoModal = (event: any) => {
         event.stopPropagation();
     }
 
-    const valorText = isPressed ? 'Adicionado' : `R$: ${price}`;
+    const valorText = isItemInCart ? 'Adicionado' : `R$: ${price}`;
+
+    const addItemToCart = (item: CartItem) => {
+        console.log(cartState);
+        cartDispatch({type: 'ADD_ITEM', payload:item});
+        setModalVisible(false);
+    };
+  
+    useEffect(() => {
+        //console.log("cartState use effect", cartState)
+        console.log("typeOf",typeof(cartState));
+    },[ cartState, index])
 
     return (
         <NativeBaseProvider>
             <Pressable h='250' w='200' onPress={abrirModal} rounded="8" bg="#ffff" marginBottom={10} shadow="9" display='flex' flexDirection='column' justifyContent="space-around">
                 <HStack alignItems={'center'} flexDirection='column' >
                     {console.log('imagem ----->', image)}
+                    {console.log('id ----->', id)}
+                    {console.log('category_id ----->', category_id)}
+                    {console.log('quantidade ----->', quantity)}
+                    {console.log('price ----->', price)}
+                  
                     <Image
                         style={{ height: 120, width: 120 }}
                         source={{
@@ -58,7 +91,7 @@ export const CardItem: React.FC<CardItemProps> = ({ name, image, price, quantida
                     <Text color="#000" style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15" textAlign={'center'}>
                         {name}{'\n'}{quantidade}
                     </Text>
-                    <Text bg={isPressed ? '#FFF' : "#ffbf1A"} color={isPressed ? '#22831A' : "#000"} borderWidth="0" w='4/6' rounded="lg" textAlign={'center'} style={{ fontFamily: 'Rubik_700Bold' }}>
+                    <Text bg={isItemInCart ? '#FFF' : "#ffbf1A"} color={isItemInCart ? '#22831A' : "#000"} borderWidth="0" w='4/6' rounded="lg" textAlign={'center'} style={{ fontFamily: 'Rubik_700Bold' }}>
                         {valorText}
                     </Text>
                 </HStack>
@@ -100,8 +133,8 @@ export const CardItem: React.FC<CardItemProps> = ({ name, image, price, quantida
                             alignItems={"center"}>
                             <VStack px='5%' py='5%' w='100%' alignItems={"center"} >
                                 <Text fontFamily={theme.fonts.semiBold} fontSize='20'>Selecione a quantidade desejada</Text>
-                                <ItnConfirmation title={name} image={image} valor={`${price}`} quantidade={1} />
-                                <Pressable justifyContent={'center'} rounded={'10'} h='20%' alignItems={"center"} w='100%' bg={theme.colors.primary} mt='30%' onPress={fecharModal}>
+                                <ItnConfirmation title={name} image={image} valor={`${price}`} quantidade={quantity} onValueChange={handleChildQuantity} onValueRemove={handleRemoveItem} itemId={id} />
+                                <Pressable justifyContent={'center'} rounded={'10'} h='20%' alignItems={"center"} w='100%' bg={theme.colors.primary} mt='30%' onPress={() => addItemToCart({ product_id: id, category_id: category_id, name: name, image: image, quantidade:quantity, price: price })}>
                                     <Text fontFamily={theme.fonts.semiBold} fontSize='15'>
                                         ADICIONAR
                                     </Text>

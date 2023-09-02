@@ -10,6 +10,7 @@ import MarketScreen from '../screens/market/market.screen';
 import CartScreen from '../screens/cart/cart.screen';
 import SplashScreen from '../screens/splash/SplashScreen';
 import RestScreen from '../screens/rest/RestScreen';
+import { CartItem, CartProvider, useCart } from '../contexts/CartContext';
 // import RestScreen from '../screens/Rest/RestScreen';
 
 const Stack = createNativeStackNavigator();
@@ -25,14 +26,18 @@ export type StackTypes = NativeStackNavigationProp<StackNavigation>;
 
 export default function StackComponent() {
     return (
+        <CartProvider>
         <NavigationContainer>
             <Stack.Navigator>
+                
                 {/* Adicione outras telas aqui, se necessário */}
-                {/* <Stack.Screen name="Rest" component={RestScreen} options={{ headerShown: false }} /> */}
-                {/* <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} /> */}
+                <Stack.Screen name="Rest" component={RestScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                 <Stack.Screen name="MarketScreen" component={MarketScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />
+                
             </Stack.Navigator>
         </NavigationContainer>
+        </CartProvider>
     );
 }

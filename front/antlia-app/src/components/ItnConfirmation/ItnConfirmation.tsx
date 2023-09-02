@@ -1,34 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, Pressable, Button } from "native-base";
 import theme from '../../theme';
+import { useCart } from '../../contexts/CartContext'; // Importe o useCart
 
-interface IntConfirmationProps {
-    title: string
-    image: string
-    descricao?: string
-    quantidade: number
+
+export interface IntConfirmationProps {
+    title?: string
+    image?: string
+    descricao?: string;
+    quantidade?: number;
+    onValueChange: (value:number) => void;
+    onValueRemove: () => void;
     valor: string | undefined
+    itemId: string; // Adicione uma prop para o ID do item
 }
 
-export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade = 1 }) => {
-    const [quantity, setQuantity] = useState<number>(quantidade);
+export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade, onValueChange, onValueRemove, itemId }) => {
+    const [quantity, setQuantity] = useState<number>(quantidade || 0);
     const isQuatityOne = quantity === 1;
+    const { cartDispatch } = useCart();
 
     descricao === '' ? descricao = 'Garrafinha' : descricao = descricao + ' ML'
 
+    
     const increment = () => {
+        const newQuantity = quantity +1
         setQuantity(quantity + 1)
-    }
+        onValueChange(newQuantity);
+        console.log('aumentando',newQuantity);
+    };
 
     const decrement = () => {
         if (quantity > 1) {
+            const newQuantity = quantity - 1
             setQuantity(quantity - 1)
+            onValueChange(newQuantity)
+            console.log('diminuindo', newQuantity);
         }
     };
 
     const removeItem = () => {
-        window.alert('teste de remoção')
+        cartDispatch({ type: 'REMOVE_ITEM', payload: itemId });
+        onValueRemove();
     };
+    
 
     return (
         <NativeBaseProvider>
