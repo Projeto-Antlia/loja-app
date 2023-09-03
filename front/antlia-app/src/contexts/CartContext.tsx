@@ -18,7 +18,9 @@ interface CartState {
 // Definir as ações do reducer
 type CartAction =
   | { type: 'ADD_ITEM'; payload: CartItem }
-  | { type: 'REMOVE_ITEM'; payload: string };
+  | { type: 'REMOVE_ITEM'; payload: string }
+  | { type: 'INCREMENT_ITEM'; payload:string}
+  | { type: 'DECREMENT_ITEM'; payload:string};
 
 // Definir o tipo do contexto
 interface CartContextType {
@@ -72,6 +74,32 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             updatedItems[newItem.product_id] = newItem;
           }
           return { ...state, items: updatedItems };
+          case 'INCREMENT_ITEM':
+            const itemIdToIncrement = action.payload;
+            const incrementedItems = state.items ? { ...state.items } : {};
+
+            console.log('CartINCREMENTContext ----->', itemIdToIncrement)
+  
+            if (itemIdToIncrement in incrementedItems) {
+              incrementedItems[itemIdToIncrement] = {
+                ...incrementedItems[itemIdToIncrement],
+                quantidade: (incrementedItems[itemIdToIncrement].quantidade || 0) + 1,
+              };
+            }
+            return { ...state, items: incrementedItems };
+          case 'DECREMENT_ITEM':
+            const itemIdToDecrement = action.payload;
+            const decrementedItems = state.items ? { ...state.items } : {};
+
+            console.log('CartDEINCREMENTContext ----->', itemIdToDecrement)
+  
+            if (itemIdToDecrement in decrementedItems) {
+              decrementedItems[itemIdToDecrement] = {
+                ...decrementedItems[itemIdToDecrement],
+                quantidade: (decrementedItems[itemIdToDecrement].quantidade || 0) - 1,
+              };
+            }
+            return { ...state, items: decrementedItems };
         case 'REMOVE_ITEM':
           const itemIdToRemove = action.payload;
           const filteredItems = { ...state.items }!;

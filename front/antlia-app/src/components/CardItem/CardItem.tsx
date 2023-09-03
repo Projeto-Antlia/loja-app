@@ -15,14 +15,10 @@ interface CardItemProps {
     price?: string;
 }
 
-interface CartState {
-    [id_product:string]: CartItem;
-}
 
 export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, price, quantidade, }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [quantity, setQuantity] = useState<number>(1);
-    const [index, setIndex]=useState<number>(1);
     const {cartState, cartDispatch } = useCart();
     const isItemInCart = id in cartState.items;
     
@@ -65,7 +61,7 @@ export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, 
     useEffect(() => {
         //console.log("cartState use effect", cartState)
         console.log("typeOf",typeof(cartState));
-    },[ cartState, index])
+    },[ cartState, quantity])
 
     return (
         <NativeBaseProvider>
@@ -133,7 +129,7 @@ export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, 
                             alignItems={"center"}>
                             <VStack px='5%' py='5%' w='100%' alignItems={"center"} >
                                 <Text fontFamily={theme.fonts.semiBold} fontSize='20'>Selecione a quantidade desejada</Text>
-                                <ItnConfirmation title={name} image={image} valor={`${price}`} quantidade={quantity} onValueChange={handleChildQuantity} onValueRemove={handleRemoveItem} itemId={id} />
+                                <ItnConfirmation title={name} image={image} valor={`${price}`} category_id={category_id} quantidade={quantity} onValueChange={handleChildQuantity} onValueRemove={handleRemoveItem} itemId={id} />
                                 <Pressable justifyContent={'center'} rounded={'10'} h='20%' alignItems={"center"} w='100%' bg={theme.colors.primary} mt='30%' onPress={() => addItemToCart({ product_id: id, category_id: category_id, name: name, image: image, quantidade:quantity, price: price })}>
                                     <Text fontFamily={theme.fonts.semiBold} fontSize='15'>
                                         ADICIONAR

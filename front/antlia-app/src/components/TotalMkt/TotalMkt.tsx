@@ -3,7 +3,11 @@ import { Alert, Modal, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import theme from "../../theme";
 
-export default function TotalMkt() {
+interface TotalMktProps{
+    subtotal:number;
+}
+
+export const TotalMkt: React.FC<TotalMktProps> = ({subtotal})=>{
     const [modalVisible, setModalVisible] = useState(false);
     const [count, setCount] = useState(15);
 
@@ -77,7 +81,7 @@ export default function TotalMkt() {
                         TOTAL
                     </Text>
                     <Text fontSize={25} style={{ fontFamily: 'Rubik_600SemiBold' }}>
-                        R$: 17,50
+                    R$ {subtotal.toFixed(2).toString()}
                     </Text>
                 </HStack>
                 <Pressable onPress={() => setModalVisible(true)}>

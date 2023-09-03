@@ -1,48 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { Box, HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Divider, Pressable, Button } from "native-base";
 import theme from '../../theme';
-import { useCart } from '../../contexts/CartContext'; // Importe o useCart
+import { CartItem,useCart } from '../../contexts/CartContext'; // Importe o useCart
 
 
 export interface IntConfirmationProps {
     title?: string
     image?: string
-    descricao?: string;
     quantidade?: number;
     onValueChange: (value:number) => void;
     onValueRemove: () => void;
     valor: string | undefined
-    itemId: string; // Adicione uma prop para o ID do item
+    category_id:string;
+    itemId: string;
+    flagCartSreen?: boolean;
 }
 
-export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor, descricao, quantidade, onValueChange, onValueRemove, itemId }) => {
+export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, valor,category_id, quantidade, onValueChange, onValueRemove, itemId, flagCartSreen }) => {
     const [quantity, setQuantity] = useState<number>(quantidade || 0);
-    const isQuatityOne = quantity === 1;
-    const { cartDispatch } = useCart();
+    const isQuatityOne = quantidade === 1;
+    const { cartState, cartDispatch } = useCart();
 
-    descricao === '' ? descricao = 'Garrafinha' : descricao = descricao + ' ML'
 
     
     const increment = () => {
-        const newQuantity = quantity +1
+        const newQuantity = quantity +1;
         setQuantity(quantity + 1)
+        console.log(newQuantity);
+        
+        if(flagCartSreen){
+            cartDispatch({ type: 'INCREMENT_ITEM', payload: itemId }); 
+        }
         onValueChange(newQuantity);
-        console.log('aumentando',newQuantity);
+        
     };
 
-    const decrement = () => {
+    const decrement = (item: CartItem) => {
         if (quantity > 1) {
             const newQuantity = quantity - 1
             setQuantity(quantity - 1)
-            onValueChange(newQuantity)
-            console.log('diminuindo', newQuantity);
+            if(flagCartSreen){
+                cartDispatch({ type: 'DECREMENT_ITEM', payload: itemId }); 
+            }
+                onValueChange(newQuantity)
+                console.log('diminuindo', newQuantity);
         }
     };
 
     const removeItem = () => {
         cartDispatch({ type: 'REMOVE_ITEM', payload: itemId });
+        setQuantity(0)
+        console.log('removeItem', quantity)
         onValueRemove();
     };
+
+    useEffect(()=>{
+        console.log("typeOf",cartState);
+    },[cartState, quantity])
     
 
     return (
@@ -72,7 +86,7 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                                 </Pressable>
                             ) : (
                                 <>
-                                    <Button onPress={decrement} bg={theme.colors.primary} rounded={40} w='12' justifyContent={'center'}>
+                                    <Button onPress={() => decrement({ product_id: itemId, category_id: category_id, name: title, image: image, quantidade:quantity, price: valor })} bg={theme.colors.primary} rounded={40} w='12' justifyContent={'center'}>
                                         <Text style={{ fontFamily: 'Rubik_700Bold' }} >
                                             -
                                         </Text>
@@ -81,8 +95,8 @@ export const ItnConfirmation: React.FC<IntConfirmationProps> = ({ title, image, 
                             )}
                             <Text color={theme.colors.black} fontSize={35} style={{ fontFamily: 'Rubik_600SemiBold' }}>
                                 {quantity}
-                            </Text>
-                            <Button onPress={increment} bg={theme.colors.primary} rounded={40} w='12'>
+                            </Text> 
+                            <Button  onPress={increment} bg={theme.colors.primary} rounded={40} w='12'>
                                 <Text style={{ fontFamily: 'Rubik_700Bold' }}>
                                     +
                                 </Text>
