@@ -1,5 +1,5 @@
 import { Pressable, Text, VStack, Image } from 'native-base';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import theme from '../../theme';
 
 type Category = {
@@ -16,11 +16,31 @@ interface ButtonFilterProps {
 
 export const ButtonFilter: React.FC<ButtonFilterProps> = ({ category, emit, isActive = false }) => {
 
-    const { name, image } = category;
+    const { name } = category;
+    const [image, setImage ] = useState<string>();
+
+    const loadCategoryImage = () => {
+        switch(name){
+            case 'CERVEJAS':
+                setImage('https://i.ibb.co/nj9nhKk/bebidas.png')
+                break;
+            case 'LANCHES':
+                setImage('https://i.ibb.co/9rBD0bt/lanches.png')
+                break;
+            case 'BEBIDAS':
+                setImage('https://i.ibb.co/ZB14B2z/refrigerantes.png')
+                break;
+        }
+    };
 
     const handlePress = () => {
         emit(category);
     }
+
+    useEffect(() => {
+        console.log("cartState use effect", image)
+        loadCategoryImage();
+    },[ name, image])
 
     const backgroundColor = isActive ? theme.colors.primary : theme.colors.white;
 
@@ -29,7 +49,7 @@ export const ButtonFilter: React.FC<ButtonFilterProps> = ({ category, emit, isAc
             <VStack justifyContent="space-around" alignItems={'center'}>
                 <Image style={{ height: 70, width: 70 }}
                     src={image || ""}
-                    alt="Vector Bag" />
+                    alt="" />
                 <Text color={theme.colors.black} style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="15">
                     {name}
                 </Text>

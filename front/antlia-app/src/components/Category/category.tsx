@@ -17,6 +17,7 @@ type Props = {
 
 const Categories = ({ onCategorySelected, categorySelected }: Props) => {
     const [categories, setCategories] = useState<Category[]>([]);
+    const [images, setImages] = useState("https://ibb.co/5Kjsn6v")
 
     useEffect(() => {
         const url = `${URL_API}inventory/categories`
