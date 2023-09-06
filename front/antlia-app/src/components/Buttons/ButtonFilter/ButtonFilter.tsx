@@ -1,6 +1,6 @@
 import { Pressable, Text, VStack, Image } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import theme from '../../theme';
+import theme from '../../../theme';
 
 type Category = {
     id: string;

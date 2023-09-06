@@ -1,13 +1,17 @@
 import { HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Pressable, Box, Button, FormControl, Input, VStack } from "native-base";
 import { Alert, Modal, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
+import { NavigationProp } from '@react-navigation/native';
 import theme from "../../theme";
+import { StackTypes } from '../../routes/Stack';
 
 interface TotalMktProps{
     subtotal:number;
+    
+    onPlaceOrder?: (data: any) => void;
 }
 
-export const TotalMkt: React.FC<TotalMktProps> = ({subtotal})=>{
+export const TotalMkt: React.FC<TotalMktProps> = ({subtotal, onPlaceOrder})=>{
     const [modalVisible, setModalVisible] = useState(false);
     const [count, setCount] = useState(15);
 
@@ -25,6 +29,7 @@ export const TotalMkt: React.FC<TotalMktProps> = ({subtotal})=>{
         if( count === 0 ){
             setModalVisible(false);
             setCount(15);
+            
         }
     }, [count]);
     return (
@@ -84,12 +89,12 @@ export const TotalMkt: React.FC<TotalMktProps> = ({subtotal})=>{
                     R$ {subtotal.toFixed(2).toString()}
                     </Text>
                 </HStack>
-                <Pressable onPress={() => setModalVisible(true)}>
-                    <Box bg={theme.colors.primary} h='100px' alignItems={'center'} justifyContent={'center'}  >
-                        <Text color={theme.colors.black} style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="25" >
-                            CONFIRMAR COMPRA
-                        </Text>
-                    </Box>
+                <Pressable onPress={onPlaceOrder}>
+                <Box bg={theme.colors.primary} h='100px' alignItems={'center'} justifyContent={'center'}>
+                    <Text color={theme.colors.black} style={{ fontFamily: 'Rubik_600SemiBold' }} fontSize="25">
+                        CONFIRMAR COMPRA
+                    </Text>
+                </Box>
                 </Pressable>
             </KeyboardAvoidingView>
         </NativeBaseProvider>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Box } from "native-base";
 import { useState, useEffect } from "react";
 import { URL_API } from "../../config";
-import { ButtonFilter } from "../ButtonFilter/ButtonFilter";
+import { ButtonFilter } from "../Buttons/ButtonFilter/ButtonFilter";
 
 
 type Category = {

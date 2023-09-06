@@ -1,12 +1,19 @@
 import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
 import React, { useEffect, useState } from 'react';
 import { Box, ScrollView, VStack, Text } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 import { KeyboardAvoidingView } from 'react-native';
 import DtlMoth from '../../components/DtlMoth/DtlMoth';
 import HeaderBag from '../../components/Header/HeaderBag';
 import { ItnConfirmation, IntConfirmationProps } from '../../components/ItnConfirmation/ItnConfirmation';
 import {TotalMkt} from '../../components/TotalMkt/TotalMkt';
 import { CartItem, useCart } from '../../contexts/CartContext';
+import { StackTypes } from '../../routes/Stack';
+import { createOrderFromCart } from '../../service/orderService';
+import apiService from '../../utils/api';
+import axios from 'axios';
+import { URL_API } from '../../config';
+
 
 
 export default function HndbScreen() {
@@ -17,7 +24,8 @@ export default function HndbScreen() {
     });
     const [quantity, setQuantity] = useState<number>(1);
     const [subtotal, setSubtotal]= useState(0);
-    const { cartState } = useCart();
+    const { cartState, cartDispatch  } = useCart();
+    const navigation = useNavigation<StackTypes>();
 
     const handleChildQuantity = (value: number) => {
         console.log('Valor HandleQuantity', value);
@@ -43,10 +51,25 @@ export default function HndbScreen() {
         return total.toFixed(2)
     }
 
+    const placeOrder = async ( data: any ) => {
+        const order = createOrderFromCart(cartState.items);
+        //console.log('Pedido a ser enviado', order);
+            try {
+                const response = await apiService.post('orders/', order);
+                console.log('Resposta da API:', response.data); //deixar esse console, futuramente substituir LOG melhorado
+                cartDispatch({ type: 'CLEAR_CART' }); 
+                navigation.navigate('OrderSucessScreen');
+            } catch (error) {
+            console.error('Erro ao fazer a solicitação POST:', error);
+            throw error; // Você pode tratar o erro de acordo com sua lógica
+            }
+    }
+
     
     useEffect(()=>{
         const newSubtotal = calculateSubtotal();
     setSubtotal(parseFloat(newSubtotal));
+    console.log('cart.screen', navigation);
     },[cartState, cartState.items]);
 
     if (!fontLoaded) {
@@ -72,8 +95,6 @@ export default function HndbScreen() {
             "justify-content": 'center',
         }
     };
-
-    // const cardItem
 
     
     return (
@@ -103,7 +124,13 @@ export default function HndbScreen() {
 
                 </VStack>
             </Box>
-            <TotalMkt subtotal={subtotal} />
+            <TotalMkt 
+            subtotal={subtotal}
+            
+            onPlaceOrder={placeOrder}
+            />
+           
         </KeyboardAvoidingView>
     )
+    
 }

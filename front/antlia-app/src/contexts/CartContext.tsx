@@ -20,7 +20,8 @@ type CartAction =
   | { type: 'ADD_ITEM'; payload: CartItem }
   | { type: 'REMOVE_ITEM'; payload: string }
   | { type: 'INCREMENT_ITEM'; payload:string}
-  | { type: 'DECREMENT_ITEM'; payload:string};
+  | { type: 'DECREMENT_ITEM'; payload:string}
+  | { type: 'CLEAR_CART' };
 
 // Definir o tipo do contexto
 interface CartContextType {
@@ -108,8 +109,9 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             // Remova o item do carrinho
             delete filteredItems[itemIdToRemove];
           }
-
           return { ...state, items: filteredItems };
+          case 'CLEAR_CART': // Manipule a ação 'CLEAR_CART' aqui
+          return { ...state, items: {} }; // Limpe os itens do carrinho
         default:
           return state;
       }

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Box } from 'native-base';
 import { useState } from 'react';
-import ButtonNext from '../../components/ButtonNext/buttonNext';
+import ButtonNext from '../../components/Buttons/ButtonNext/buttonNext';
 import Categories from '../../components/Category/category';
 import Container from '../../components/Container/Container';
 import HeaderMarket from '../../components/Header/HeaderMarket';
@@ -55,7 +55,7 @@ export default function MktScreen() {
                     <Categories onCategorySelected={setCategorySelected} categorySelected={categorySelected} />
                     <Products categorySelected={categorySelected} />
                 </Container>
-                <ButtonNext navigation={navigation} />
+                <ButtonNext  navigation={navigation} />
             </Box>
         </>
 
