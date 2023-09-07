@@ -2,12 +2,13 @@ import React from "react";
 import { Box, HStack, Image, Pressable, Text, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../theme";
+import { StackTypes } from "../../routes/Stack";
 
 export default function HeaderHome() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackTypes>();
 
     const handleGoHome = () => {
-        navigation.navigate('Rest');
+        navigation.navigate("Rest");
     }
 
     return (

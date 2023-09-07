@@ -40,7 +40,7 @@ export default function OrderSucessScreen() {
                         COMPRA REALIZADA!
                     </Text>
                     <Pressable  display='flex' justifyContent="center" rounded="8"  marginBottom={10}
-                        onPress={() => { navigation.navigate("Rest") }}>
+                        onPress={() => { navigation.navigate('Rest'); }}>
                         <Text color={theme.colors.white} fontSize={20} style={{ fontWeight: 'bold' }}>Não esqueça os seus produtos</Text>
                     </Pressable>
                     </VStack>
