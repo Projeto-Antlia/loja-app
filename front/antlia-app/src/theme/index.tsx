@@ -9,7 +9,7 @@ const fonts = {
 
 const colors = {
     primary: '#ffbf1a',
-    secondary: '#502275;',
+    secondary: '#502275',
     textPrimary: '#2B2B2B',
     borderColor: '',
     white: '#fff',

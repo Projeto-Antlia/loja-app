@@ -12,6 +12,7 @@ import SplashScreen from '../screens/splash/SplashScreen';
 import RestScreen from '../screens/rest/RestScreen';
 import { CartItem, CartProvider, useCart } from '../contexts/CartContext';
 import OrderSucessScreen from '../screens/OrderSuccess/OrderSucessScreen';
+import PrcScreen from '../screens/purchases/purchases.screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,8 @@ type StackNavigation = {
     Home: undefined;
     MarketScreen: undefined;
     CartScreen: undefined;
-    OrderSucessScreen:undefined;
+    OrderSucessScreen: undefined;
+    PrcScreen: undefined;
 };
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
@@ -29,16 +31,17 @@ export type StackTypes = NativeStackNavigationProp<StackNavigation>;
 export default function StackComponent() {
     return (
         <CartProvider>
-        <NavigationContainer>
-            <Stack.Navigator>
-                {/* Adicione outras telas aqui, se necessário */}
-                <Stack.Screen name="Rest" component={RestScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-                <Stack.Screen name="MarketScreen" component={MarketScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="OrderSucessScreen" component={OrderSucessScreen} options={{ headerShown: false }} />
-            </Stack.Navigator>
-        </NavigationContainer>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    {/* Adicione outras telas aqui, se necessário */}
+                    <Stack.Screen name="Rest" component={RestScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+                    <Stack.Screen name="MarketScreen" component={MarketScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="OrderSucessScreen" component={OrderSucessScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="PrcScreen" component={PrcScreen} options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
         </CartProvider>
     );
 }

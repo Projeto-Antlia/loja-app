@@ -9,14 +9,16 @@ export default function HeaderMarket() {
         navigation.goBack();
     };
     const handleGoHome = () => {
-        navigation.navigate('Rest');
+        navigation.navigate("Rest");
     };
 
     return (
         <Box display='flex'
             justifyContent='space-between'
             h={110}
-            px={4}>
+            px={4}
+            borderBottomColor={'#C9C9C9'}
+            borderBottomWidth={"1"}>
             <HStack display='flex'
                 justifyContent='space-between'
                 alignItems='center'>
@@ -32,7 +34,7 @@ export default function HeaderMarket() {
                             source={require('../../assets/home.png')}
                         />
                         <Text fontSize="15" fontFamily="Rubik_600SemiBold">
-                            VOLTAR
+                            INÍCIO
                         </Text>
                     </VStack>
                 </Pressable>

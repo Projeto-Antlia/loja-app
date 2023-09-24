@@ -15,7 +15,6 @@ interface CardItemProps {
     price?: string;
 }
 
-
 export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, price, quantidade, }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [quantity, setQuantity] = useState<number>(1);
@@ -39,13 +38,6 @@ export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, 
         setModalVisible(false);
     };
 
-    // const buttonStyles = {
-    //     h3: name,
-    //     image: image,
-    //     price: price,
-    //     quantidade: quantidade
-    // };
-
     const lidarComPressaoNoModal = (event: any) => {
         event.stopPropagation();
     }
@@ -59,7 +51,6 @@ export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, 
     };
   
     useEffect(() => {
-        //console.log("cartState use effect", cartState)
         console.log("typeOf",typeof(cartState));
     },[ cartState, quantity])
 
@@ -67,11 +58,11 @@ export const CardItem: React.FC<CardItemProps> = ({id, name, category_id,image, 
         <NativeBaseProvider>
             <Pressable h='250' w='200' onPress={abrirModal} rounded="8" bg="#ffff" marginBottom={10} shadow="9" display='flex' flexDirection='column' justifyContent="space-around">
                 <HStack alignItems={'center'} flexDirection='column' >
-                    {console.log('imagem ----->', image)}
+                    {/* {console.log('imagem ----->', image)}
                     {console.log('id ----->', id)}
                     {console.log('category_id ----->', category_id)}
                     {console.log('quantidade ----->', quantity)}
-                    {console.log('price ----->', price)}
+                    {console.log('price ----->', price)} */}
                   
                     <Image
                         style={{ height: 120, width: 120 }}

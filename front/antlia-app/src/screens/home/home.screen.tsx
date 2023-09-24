@@ -54,7 +54,7 @@ export default function Home() {
                             />
                         </HStack>
                     </Pressable>
-                    <Pressable h='190' onPress={() => window.alert("I'm Presseds")} display='flex' justifyContent="center" rounded="8" bg="#502275" >
+                    <Pressable h='190' onPress={() => { navigation.navigate("PrcScreen") }} display='flex' justifyContent="center" rounded="8" bg="#502275" >
                         <HStack justifyContent="space-around" alignItems={'center'}>
                             <Box>
                                 <Text color="#FFF" style={{ fontFamily: 'Rubik_700Bold' }} fontSize="35" lineHeight='sm'>
