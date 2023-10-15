@@ -1,10 +1,8 @@
 import { Rubik_400Regular, Rubik_600SemiBold, Rubik_700Bold, useFonts } from '@expo-google-fonts/rubik';
-import { Badge, Box, HStack, Image, Text, VStack } from "native-base";
-import { BarChart } from "react-native-chart-kit";
+import { Text, VStack } from "native-base";
 import theme from '../../theme/index';
-import { Dimensions } from "react-native";
-import Graph from "../Graph/Graph";
 import DetailsMoth from "../DetailsMoth/DetailsMoth";
+import Graph from "../Graph/Graph";
 
 interface SummaryProps {
 
