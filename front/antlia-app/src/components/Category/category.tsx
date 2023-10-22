@@ -3,6 +3,7 @@ import { Box } from "native-base";
 import { useState, useEffect } from "react";
 import { URL_API } from "../../config";
 import { ButtonFilter } from "../Buttons/ButtonFilter/ButtonFilter";
+import apiService from "../../utils/api";
 
 
 type Category = {
@@ -21,10 +22,11 @@ const Categories = ({ onCategorySelected, categorySelected }: Props) => {
 
     useEffect(() => {
         const url = `${URL_API}inventory/categories`
-        axios.get(url).then(res => {
+
+        apiService.get('/inventory/categories').then(res => {
             setCategories(res.data);
         })
-        .catch(err => console.log("erro"))
+        .catch(err => setCategories([]))
     }, [])
 
     const handleIsActive = (cat: Category) => {

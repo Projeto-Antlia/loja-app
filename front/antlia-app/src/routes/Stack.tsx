@@ -5,6 +5,8 @@ import {
     NativeStackNavigationProp
 } from '@react-navigation/native-stack';
 
+import { navigationRef } from "../service/errors/navigation.service";
+
 import Home from "../screens/home/home.screen";
 import MarketScreen from '../screens/market/market.screen';
 import CartScreen from '../screens/cart/cart.screen';
@@ -49,7 +51,7 @@ export default function StackComponent() {
 
     return (
         <CartProvider>
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
                 <Stack.Navigator>
                     {/* Adicione outras telas aqui, se necessário */}
                     {

@@ -35,7 +35,7 @@ export const AuthProvider = ({ children } : AuthProviderProps) => {
     if (hasUserLoggedIn) {
       setUser(userLogged.user);
       setLoggedIn(true);
-    }
+    } 
   }
 
   useEffect(() => {

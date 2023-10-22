@@ -1,8 +1,8 @@
-import axios from "axios";
 import { Box, FlatList } from "native-base";
 import { useEffect, useState } from "react";
 import { URL_API } from "../../config";
 import { CardItem } from "../CardItem/CardItem";
+import apiService from "../../utils/api";
 
 type Category = {
     id: string;
@@ -23,7 +23,7 @@ const Products = ({ categorySelected }: { categorySelected?: Category }) => {
 
     useEffect(() => {
 
-        axios.get(`${URL_API}inventory/products`).then(res => {
+        apiService.get('/inventory/products').then(res => {
             let products: Product[] = res.data;
 
             if (categorySelected) {
@@ -32,7 +32,7 @@ const Products = ({ categorySelected }: { categorySelected?: Category }) => {
 
             setProducts(products);
         })
-
+        .catch(err => setProducts([]))
     }, [categorySelected])
 
     
