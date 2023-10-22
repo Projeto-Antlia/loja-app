@@ -1,15 +1,17 @@
 import { useNavigation } from "@react-navigation/native"
 import { Box, HStack, Image, Pressable, Text, VStack } from "native-base";
 import React from "react";
+import { useAuth } from "../../contexts/auth.context";
 
 export default function HeaderMarket() {
+    const { logout } = useAuth();
 
     const navigation = useNavigation();
     const handleGoBack = () => {
         navigation.goBack();
     };
     const handleGoHome = () => {
-        navigation.navigate("Rest");
+        logout();
     };
 
     return (

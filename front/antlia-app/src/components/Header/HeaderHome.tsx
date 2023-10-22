@@ -3,12 +3,13 @@ import { Box, HStack, Image, Pressable, Text, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../theme";
 import { StackTypes } from "../../routes/Stack";
+import { useAuth } from "../../contexts/auth.context";
 
 export default function HeaderHome() {
-    const navigation = useNavigation<StackTypes>();
-
+    const { logout } = useAuth();
+    
     const handleGoHome = () => {
-        navigation.navigate("Rest");
+        logout();
     }
 
     return (

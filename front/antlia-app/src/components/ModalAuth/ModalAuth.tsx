@@ -1,9 +1,10 @@
 import { Box, Pressable, Text, VStack } from "native-base";
 import React, { useState } from "react";
-import { Keyboard, Modal, ScrollView, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Keyboard, Modal, ScrollView, TouchableOpacity, View } from "react-native";
 import { TextInputMask } from "react-native-masked-text";
 import { TextInput } from 'react-native-paper';
 import theme from "../../theme";
+import { useAuth } from "../../contexts/auth.context";
 
 
 interface ModalAuthProps {
@@ -15,18 +16,33 @@ export const ModalAuth: React.FC<ModalAuthProps> = ({
     isVisible,
     onClose,
 }) => {
+    const { signIn } = useAuth();
+
     const [password, setPassword] = useState("");
     const [showPassord, setShowPassord] = useState(false);
     const [cpf, setCpf] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+
     const textInputRef = React.useRef<TextInputMask | null>(null);
     const handleCpfChange = (value: string) => {
         const numericValue = value.replace(/[^0-9]/g, "");
         setCpf(numericValue);
     }
-    const showCpf = () => {
-        console.log("cpf",cpf)
-        console.log("senha",password)
-    };
+    const handleLogin = () => {
+        setIsLoading(true)
+
+        const payload = {
+            username: cpf,
+            password
+        }
+        
+        signIn(payload)
+          .catch((message) => {
+            setIsError(true);
+          })
+          .finally(() => setIsLoading(false));
+      };
 
     const handlePress = () => {
         setTimeout(() => {
@@ -60,6 +76,10 @@ export const ModalAuth: React.FC<ModalAuthProps> = ({
                             <Text fontFamily={theme.fonts.semiBold} fontSize="20">
                                 Credenciais
                             </Text>
+                            {isError 
+                                ? <Text style={{ color: "red"}}>Usuário ou senha inválido</Text> 
+                                : false
+                            }
                             <TextInput
                                 label="CPF"
                                 mode="outlined"
@@ -98,10 +118,16 @@ export const ModalAuth: React.FC<ModalAuthProps> = ({
                                 w="100%"
                                 bg={theme.colors.primary}
                                 mt="8%"
-                                onPress={showCpf}>
-                                <Text fontFamily={theme.fonts.semiBold} fontSize="15">
-                                    ADICIONAR
-                                </Text>
+                                onPress={handleLogin}>
+                                {
+                                    isLoading
+                                    ? (<ActivityIndicator color="#FFF" />)
+                                    : (
+                                        <Text fontFamily={theme.fonts.semiBold} fontSize="15">
+                                            ENTRAR
+                                        </Text>
+                                    )
+                                }
                             </Pressable>
                         </Box>
                     </VStack>

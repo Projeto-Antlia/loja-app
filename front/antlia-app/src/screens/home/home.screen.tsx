@@ -11,8 +11,11 @@ import {
 import Header from '../../components/Header/Header';
 import { StackTypes } from '../../routes/Stack';
 import HeaderHome from '../../components/Header/HeaderHome';
+import {  useAuth } from '../../contexts/auth.context';
 
 export default function Home() {
+    const { user } = useAuth();
+
     const navigation = useNavigation<StackTypes>();
 
     const [fontLoaded] = useFonts({
@@ -33,8 +36,7 @@ export default function Home() {
             <Box py="4" maxWidth="100%" backgroundColor="6a51ae" alignItems='center'>
                 <VStack justifyContent="space-between" w='80%'>
                     <Text fontSize="80" color="#2b2b2b" style={{ fontFamily: 'Rubik_600SemiBold' }} textAlign='center'>
-                        BEM-VINDO
-                        THIAGO
+                        {`BEM VINDO ${user?.name.toUpperCase().split(' ')[0]}`}
                     </Text>
                     <Text fontSize="50" color="#2b2b2b" style={{ fontFamily: 'Rubik_400Regular' }} py='10' >
                         O que gostaria {'\n'}de fazer?
