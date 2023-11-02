@@ -7,6 +7,7 @@ import Container from '../../components/Container/Container';
 import HeaderMarket from '../../components/Header/HeaderMarket';
 import Products from '../../components/Products/products';
 import { StackTypes } from '../../routes/Stack';
+import { useAuth } from '../../contexts/auth.context';
 
 type Category = {
     id: string;
@@ -23,6 +24,7 @@ type Product = {
 }
 
 export default function MktScreen() {
+    
     const [categorySelected, setCategorySelected] = useState<Category | undefined>(undefined);
     const navigation = useNavigation<StackTypes>();
     const styles = {

@@ -27,7 +27,9 @@ type StackNavigation = {
     Home: undefined;
     MarketScreen: undefined;
     CartScreen: undefined;
-    OrderSucessScreen: undefined;
+    OrderSucessScreen: {
+        order: any
+    };
     PrcScreen: undefined;
 };
 
@@ -63,7 +65,7 @@ export default function StackComponent() {
                                 <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                                 <Stack.Screen name="MarketScreen" component={MarketScreen} options={{ headerShown: false }} />
                                 <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />
-                                <Stack.Screen name="OrderSucessScreen" component={OrderSucessScreen} options={{ headerShown: false }} />
+                                <Stack.Screen name="OrderSucessScreen" component={OrderSucessScreen} options={{ headerShown: false }} initialParams={{ order: {} }} />
                                 <Stack.Screen name="PrcScreen" component={PrcScreen} options={{ headerShown: false }} />
                             </>
                         )

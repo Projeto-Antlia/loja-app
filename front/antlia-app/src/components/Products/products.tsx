@@ -49,7 +49,7 @@ const Products = ({ categorySelected }: { categorySelected?: Category }) => {
                         id={item.id}
                         name={item.name}
                         category_id={item.category_id}
-                        image={`${URL_API}inventory/products/${item.id}/image`}
+                        image={`${URL_API}/inventory/products/${item.id}/image`}
                         price={parseFloat(item.price).toFixed(2)}
                     />
                 </Box>

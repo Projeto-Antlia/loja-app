@@ -15,7 +15,6 @@ import axios from 'axios';
 import { URL_API } from '../../config';
 
 
-
 export default function HndbScreen() {
     const [fontLoaded] = useFonts({
         Rubik_400Regular,
@@ -24,6 +23,7 @@ export default function HndbScreen() {
     });
     const [quantity, setQuantity] = useState<number>(1);
     const [subtotal, setSubtotal]= useState(0);
+    const [confirmation, setConfirmation] = useState(false);
     const { cartState, cartDispatch  } = useCart();
     const navigation = useNavigation<StackTypes>();
 
@@ -46,19 +46,19 @@ export default function HndbScreen() {
                 const itemSubtotal = item.quantidade * (item.price ? parseFloat(item.price):0);
                 total+=itemSubtotal;
             }
-            
         }
         return total.toFixed(2)
     }
 
-    const placeOrder = async ( data: any ) => {
+    const placeOrder = async ( ) => {
         const order = createOrderFromCart(cartState.items);
+        console.log("PlaceOrder")
         //console.log('Pedido a ser enviado', order);
             try {
                 const response = await apiService.post('orders/', order);
                 console.log('Resposta da API:', response.data); //deixar esse console, futuramente substituir LOG melhorado
                 cartDispatch({ type: 'CLEAR_CART' }); 
-                navigation.navigate('OrderSucessScreen');
+                navigation.navigate('OrderSucessScreen', { order: response?.data });
             } catch (error) {
             console.error('Erro ao fazer a solicitação POST:', error);
             throw error; // Você pode tratar o erro de acordo com sua lógica
@@ -68,8 +68,8 @@ export default function HndbScreen() {
     
     useEffect(()=>{
         const newSubtotal = calculateSubtotal();
-    setSubtotal(parseFloat(newSubtotal));
-    console.log('cart.screen', navigation);
+        setSubtotal(parseFloat(newSubtotal));
+
     },[cartState, cartState.items]);
 
     if (!fontLoaded) {
@@ -88,7 +88,6 @@ export default function HndbScreen() {
             height: 100,
             "justify-content": 'center',
         },
-
         footer: {
             grow: 1,
             height: 100,
@@ -126,8 +125,8 @@ export default function HndbScreen() {
             </Box>
             <TotalMkt 
             subtotal={subtotal}
-            
             onPlaceOrder={placeOrder}
+            
             />
            
         </KeyboardAvoidingView>

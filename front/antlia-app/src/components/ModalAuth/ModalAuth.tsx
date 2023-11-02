@@ -5,18 +5,26 @@ import { TextInputMask } from "react-native-masked-text";
 import { TextInput } from 'react-native-paper';
 import theme from "../../theme";
 import { useAuth } from "../../contexts/auth.context";
+import { screenType } from "../TotalMkt/TotalMkt";
 
 
 interface ModalAuthProps {
     isVisible: boolean
     onClose: () => void
+    statusScreen?: screenType;
+    onConfirmation: () => void;
 };
+
+
 
 export const ModalAuth: React.FC<ModalAuthProps> = ({
     isVisible,
     onClose,
+    statusScreen = screenType.LOGIN,
+    onConfirmation = async ()=>{},
 }) => {
     const { signIn } = useAuth();
+    const {user} = useAuth();
 
     const [password, setPassword] = useState("");
     const [showPassord, setShowPassord] = useState(false);
@@ -29,16 +37,45 @@ export const ModalAuth: React.FC<ModalAuthProps> = ({
         const numericValue = value.replace(/[^0-9]/g, "");
         setCpf(numericValue);
     }
+
+    const getTextButton = () => {
+        if(isLoading) return (
+        <ActivityIndicator color="#FFF" />
+        )
+
+        if(statusScreen === screenType.LOGIN) {
+            return (
+                <Text fontFamily={theme.fonts.semiBold} fontSize="15">
+                        ENTRAR
+                </Text>
+            )
+        }
+        return (<Text fontFamily={theme.fonts.semiBold} fontSize="15">
+        COMPRAR
+</Text>)
+    }
+
     const handleLogin = () => {
         setIsLoading(true)
-
-        const payload = {
-            username: cpf,
-            password
+    
+        console.log("handle")
+        let payload;
+        if (user) {
+            payload = {
+                username: user.username, 
+                password
+            };
+        } else {
+            payload = {
+                username: cpf.replace(/[^0-9]/g, ""),
+                password
+            };
         }
         
-        signIn(payload)
+        
+        signIn(payload).then(async () => await onConfirmation())
           .catch((message) => {
+            console.log(message)
             setIsError(true);
           })
           .finally(() => setIsLoading(false));
@@ -73,13 +110,20 @@ export const ModalAuth: React.FC<ModalAuthProps> = ({
                             <Text>X</Text>
                         </Pressable>
                         <Box alignItems={"center"} justifyContent={"space-evenly"} h='100%' >
+                        {statusScreen === screenType.LOGIN ?
                             <Text fontFamily={theme.fonts.semiBold} fontSize="20">
                                 Credenciais
                             </Text>
+                            :
+                            <Text fontFamily={theme.fonts.semiBold} fontSize="20">
+                                Confirme sua compra
+                            </Text>
+                            }
                             {isError 
                                 ? <Text style={{ color: "red"}}>Usuário ou senha inválido</Text> 
                                 : false
                             }
+                            {statusScreen === screenType.LOGIN ?
                             <TextInput
                                 label="CPF"
                                 mode="outlined"
@@ -94,7 +138,7 @@ export const ModalAuth: React.FC<ModalAuthProps> = ({
                                         onChangeText={handleCpfChange}
                                         ref={(ref) => (textInputRef.current = ref)}
                                         keyboardType="numeric" />
-                                )} />
+                                )} /> :""}
 
                             <TextInput
                                 label="Senha"
@@ -120,13 +164,7 @@ export const ModalAuth: React.FC<ModalAuthProps> = ({
                                 mt="8%"
                                 onPress={handleLogin}>
                                 {
-                                    isLoading
-                                    ? (<ActivityIndicator color="#FFF" />)
-                                    : (
-                                        <Text fontFamily={theme.fonts.semiBold} fontSize="15">
-                                            ENTRAR
-                                        </Text>
-                                    )
+                                    getTextButton()
                                 }
                             </Pressable>
                         </Box>

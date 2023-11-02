@@ -10,6 +10,7 @@ import theme from '../../theme';
 export default function RestScreen() {
     const navigation = useNavigation<StackTypes>();
     const [modalVisible, setModalVisible] = useState(false);
+    const statusScreen= 'login';
 
     const openModal = () => {
         setModalVisible(true);
@@ -56,7 +57,8 @@ export default function RestScreen() {
                             <Text p='3' color={theme.colors.white} fontSize={theme.size.font10}>ENTRAR</Text>
                             <ModalAuth
                                 isVisible={modalVisible}
-                                onClose={closeModal} />
+                                onClose={closeModal}
+                                statusScreen={statusScreen} />
                         </Box>
                     </Pressable>
                     {/* 👆🏻 Tirar apos compatibilidade com cartão rfid 👆🏻 */}

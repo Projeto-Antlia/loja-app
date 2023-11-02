@@ -4,7 +4,7 @@ import React from "react";
 import { useAuth } from "../../contexts/auth.context";
 
 export default function HeaderMarket() {
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
     const navigation = useNavigation();
     const handleGoBack = () => {
@@ -40,7 +40,10 @@ export default function HeaderMarket() {
                         </Text>
                     </VStack>
                 </Pressable>
-                <Text fontSize="20">Bem-vindo </Text>
+                <Box alignItems="center">
+                    <Text fontSize="16">BEM-VINDO</Text>
+                    <Text fontSize="16" fontWeight="bold" lineHeight={20}>{user?.name.toUpperCase()}</Text>
+                </Box>
                 <Pressable
                     bg='#ebebeb'
                     borderRadius={10}

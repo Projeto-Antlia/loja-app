@@ -1,5 +1,5 @@
 import { Rubik_400Regular, Rubik_600SemiBold, useFonts, Rubik_700Bold } from '@expo-google-fonts/rubik';
-import { Box, HStack, NativeBaseProvider, Pressable, Text, VStack, Image } from 'native-base';
+import { Box, HStack, NativeBaseProvider, Pressable, Text, VStack, Image, View } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
@@ -29,11 +29,9 @@ export default function Home() {
     }
 
     return (
-        <KeyboardAvoidingView
-            style={{ flex: 1 }}
-        >
-           <HeaderHome />
-            <Box py="4" maxWidth="100%" backgroundColor="6a51ae" alignItems='center'>
+        <View height="100%" background="#fff">
+          <HeaderHome />
+            <Box py="4" maxWidth="100%" backgroundColor="#fff" alignItems='center' borderTopWidth={1} borderTopColor="#ddd">
                 <VStack justifyContent="space-between" w='80%'>
                     <Text fontSize="80" color="#2b2b2b" style={{ fontFamily: 'Rubik_600SemiBold' }} textAlign='center'>
                         {`BEM VINDO ${user?.name.toUpperCase().split(' ')[0]}`}
@@ -70,7 +68,7 @@ export default function Home() {
                         </HStack>
                     </Pressable>
                 </VStack>
-            </Box>
-        </KeyboardAvoidingView>
+            </Box> 
+        </View>
     )
 }
