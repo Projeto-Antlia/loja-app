@@ -5,57 +5,59 @@ import { CardItem } from "../CardItem/CardItem";
 import apiService from "../../utils/api";
 
 type Category = {
-    id: string;
-    name: string;
-    image: string;
-}
+  id: string;
+  name: string;
+  image: string;
+};
 
 type Product = {
-    id: string;
-    category_id: string;
-    name: string;
-    image: string;
-    price: string;
-}
+  id: string;
+  category_id: string;
+  name: string;
+  image: string;
+  price: string;
+};
 
 const Products = ({ categorySelected }: { categorySelected?: Category }) => {
-    const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-    useEffect(() => {
+  useEffect(() => {
+    apiService
+      .get("/inventory/products")
+      .then((res) => {
+        let products: Product[] = res.data;
 
-        apiService.get('/inventory/products').then(res => {
-            let products: Product[] = res.data;
+        if (categorySelected) {
+          products = products.filter(
+            (prod) => prod.category_id === categorySelected.id
+          );
+        }
 
-            if (categorySelected) {
-                products = products.filter(prod => prod.category_id === categorySelected.id)
-            }
+        setProducts(products);
+      })
+      .catch((err) => setProducts([]));
+  }, [categorySelected]);
 
-            setProducts(products);
-        })
-        .catch(err => setProducts([]))
-    }, [categorySelected])
-
-    
-    return (    
-        <FlatList
-            data={products}
-            keyExtractor={(item) => item.id}
-            numColumns={3}
-            style={{ flex: 1 }}
-            columnWrapperStyle={{ flex: 1, justifyContent: "space-around" }}
-            renderItem={({ item }) => (
-                <Box>
-                    <CardItem
-                        id={item.id}
-                        name={item.name}
-                        category_id={item.category_id}
-                        image={`${URL_API}/inventory/products/${item.id}/image`}
-                        price={parseFloat(item.price).toFixed(2)}
-                    />
-                </Box>
-            )}
-        />
-    )
-}
+  return (
+    <FlatList
+      data={products}
+      keyExtractor={(item) => item.id}
+      numColumns={3}
+      style={{ flex: 1 }}
+      columnWrapperStyle={{ flex: 1, justifyContent: "space-around" }}
+      renderItem={({ item }) => (
+        <Box>
+          <CardItem
+            id={item.id}
+            name={item.name}
+            category_id={item.category_id}
+            image={`${URL_API}/inventory/products/${item.id}/image`}
+            price={parseFloat(item.price).toFixed(2)}
+          />
+        </Box>
+      )}
+    />
+  );
+};
 
 export default Products;

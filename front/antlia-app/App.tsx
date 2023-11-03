@@ -1,14 +1,15 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider } from 'native-base';
+import { NativeBaseProvider, StatusBar } from "native-base";
 import { AuthProvider } from "./src/contexts/auth.context";
-import StackComponent from './src/routes/Stack';
-import { CountdownProvider, useCountDown } from './src/contexts/CountdownContext';
-
-const Stack = createNativeStackNavigator();
+import StackComponent from "./src/routes/Stack";
+import {
+  CountdownProvider,
+  useCountDown,
+} from "./src/contexts/CountdownContext";
 
 export default function App() {
   return (
     <AuthProvider>
+      <StatusBar hidden />
       <CountdownProvider>
         <NativeBaseProvider>
           <StackComponent />
@@ -17,4 +18,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-
