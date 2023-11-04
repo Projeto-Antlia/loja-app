@@ -25,7 +25,9 @@ const TotalFooter = ({ invoices }: IProps) => {
 
   useEffect(() => {
     // Calculando o total somando os totais individuais
-    const totalSum = invoices.reduce((acc, curr) => acc + curr.total, 0);
+    const totalSum = invoices
+      .filter((inv) => inv.pay_status === "PENDING")
+      .reduce((acc, curr) => acc + curr.total, 0);
     setTotal(parseFloat(totalSum.toFixed(2)));
   }, [invoices]);
 

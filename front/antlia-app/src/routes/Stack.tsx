@@ -13,6 +13,7 @@ import Screensaver from "../screens/screensaver/Screensaver";
 import { CartProvider } from "../contexts/CartContext";
 import OrderSucessScreen from "../screens/OrderSuccess/OrderSucessScreen";
 import PrcScreen from "../screens/purchases/purchases.screen";
+import PurchasesDetail from "../screens/purchasesDetail/purchasesDetail";
 import { useAuth } from "../contexts/auth.context";
 
 import { Box, NativeBaseProvider, Text } from "native-base";
@@ -29,6 +30,9 @@ type StackNavigation = {
     order: any;
   };
   PrcScreen: undefined;
+  PurchasesDetail: {
+    invoice: any;
+  };
 };
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
@@ -86,6 +90,11 @@ export default function StackComponent() {
               <Stack.Screen
                 name="PrcScreen"
                 component={PrcScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="PurchasesDetail"
+                component={PurchasesDetail}
                 options={{ headerShown: false }}
               />
             </>

@@ -2,15 +2,18 @@ import { useNavigation } from "@react-navigation/native";
 import { Box, HStack, Image, Pressable, Text, VStack } from "native-base";
 import React from "react";
 import { useAuth } from "../../contexts/auth.context";
+import { useCart } from "../../contexts/CartContext";
 
 export default function HeaderMarket() {
   const { logout, user } = useAuth();
+  const { cartState, cartDispatch } = useCart();
 
   const navigation = useNavigation();
   const handleGoBack = () => {
     navigation.goBack();
   };
   const handleGoHome = () => {
+    cartDispatch({ type: "CLEAR_CART" });
     logout();
   };
 
