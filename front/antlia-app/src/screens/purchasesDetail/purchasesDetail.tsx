@@ -4,14 +4,14 @@ import {
   Rubik_700Bold,
   useFonts,
 } from "@expo-google-fonts/rubik";
-import React, { useEffect, useState } from "react";
-import { Box, ScrollView, VStack, Text, View, Button } from "native-base";
+import React, { Fragment, useEffect, useState } from "react";
+import { Box, ScrollView, Text, View } from "native-base";
 import { useRoute } from "@react-navigation/native";
-import HeaderBag from "../../components/Header/HeaderBag";
+import HeaderHome from "../../components/Header";
 import apiService from "../../utils/api";
 import TotalFooter from "../../components/TotalFooter/totalFooter";
 import { Invoice, Transaction } from "../../@types/invoice";
-import { formatDate, getMonth } from "../../utils/date-helpers";
+import { formatDate } from "../../utils/date-helpers";
 import { Dimensions, StyleSheet } from "react-native";
 import TransactionItem from "../../components/TransactionItem/TransactionItem";
 import OrdersList from "../../components/TransactionItem/OrdersList";
@@ -76,7 +76,7 @@ export default function PurchasesDetail() {
   return (
     <>
       <View style={styles.container}>
-        <HeaderBag />
+        <HeaderHome />
         <Box flexDir="row" justifyContent="space-between" px={6} py={8}>
           <Text style={styles.title}>Resumo de compras</Text>
           <Text style={styles.end_at}>
@@ -84,15 +84,15 @@ export default function PurchasesDetail() {
           </Text>
         </Box>
         <ScrollView flexGrow={1}>
-          {Object.keys(transactions).map((key) => (
-            <>
+          {Object.keys(transactions).map((key, i) => (
+            <Fragment key={i}>
               <Text style={styles.month} px={6} py={4}>
                 {key}
               </Text>
               {transactions[key].map((t) => (
-                <TransactionColapse transaction={t} />
+                <TransactionColapse key={t.id} transaction={t} />
               ))}
-            </>
+            </Fragment>
           ))}
         </ScrollView>
         <TotalFooter invoices={[invoice]} />

@@ -47,6 +47,7 @@ export default function HeaderBag() {
             <Image
               style={{ height: "60%", width: "40%" }}
               source={require("../../assets/sair.png")}
+              alt=""
             />
             <Text fontSize="15" fontFamily="Rubik_600SemiBold">
               SAIR

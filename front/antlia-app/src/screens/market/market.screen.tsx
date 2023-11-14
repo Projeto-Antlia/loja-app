@@ -4,10 +4,10 @@ import { useState } from "react";
 import ButtonNext from "../../components/Buttons/ButtonNext/buttonNext";
 import Categories from "../../components/Category/category";
 import Container from "../../components/Container/Container";
-import HeaderMarket from "../../components/Header/HeaderMarket";
+import HeaderHome from "../../components/Header";
 import Products from "../../components/Products/products";
 import { StackTypes } from "../../routes/Stack";
-import { useAuth } from "../../contexts/auth.context";
+import { useCart } from "../../contexts/CartContext";
 
 type Category = {
   id: string;
@@ -28,6 +28,7 @@ export default function MktScreen() {
     Category | undefined
   >(undefined);
   const navigation = useNavigation<StackTypes>();
+  const cart = useCart();
   const styles = {
     container: {
       flex: 1,
@@ -51,7 +52,7 @@ export default function MktScreen() {
   return (
     <>
       <Box style={styles.container}>
-        <HeaderMarket />
+        <HeaderHome />
         <Container>
           <Categories
             onCategorySelected={setCategorySelected}

@@ -1,12 +1,15 @@
 import React from "react";
 import { Box, HStack, Image, Pressable, Text, VStack } from "native-base";
-import { useNavigation } from "@react-navigation/native";
-import theme from "../../theme";
-import { StackTypes } from "../../routes/Stack";
+import { useNavigation, useNavigationState } from "@react-navigation/native";
 import { useAuth } from "../../contexts/auth.context";
 
 export default function HeaderHome() {
   const { logout } = useAuth();
+  const screenName = useNavigationState(
+    (state) => state.routes[state.index].name
+  );
+
+  console.log(screenName);
 
   const handleGoHome = () => {
     logout();

@@ -9,7 +9,7 @@ import { Box, ScrollView, VStack, Text } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAvoidingView } from "react-native";
 import DtlMoth from "../../components/DtlMoth/DtlMoth";
-import HeaderBag from "../../components/Header/HeaderBag";
+import HeaderHome from "../../components/Header";
 import { ItemCart } from "../../components/ItemCart/ItemCart";
 import { TotalMkt } from "../../components/TotalMkt/TotalMkt";
 import { useCart } from "../../contexts/CartContext";
@@ -26,7 +26,7 @@ export default function HndbScreen() {
   const [quantity, setQuantity] = useState<number>(1);
   const [subtotal, setSubtotal] = useState(0);
   const [confirmation, setConfirmation] = useState(false);
-  const { cartState, cartDispatch } = useCart();
+  const { cartState, cartDispatch, isEmptyCart } = useCart();
   const navigation = useNavigation<StackTypes>();
 
   const handleChildQuantity = (value: number) => {
@@ -96,9 +96,14 @@ export default function HndbScreen() {
     },
   };
 
+  if (isEmptyCart) {
+    navigation.navigate("MarketScreen");
+    return null;
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <HeaderBag />
+      <HeaderHome />
       <Box h="76%" bg="#E9E9E9">
         <DtlMoth />
         <VStack h="85%">

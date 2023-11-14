@@ -4,28 +4,13 @@ import {
   useFonts,
   Rubik_700Bold,
 } from "@expo-google-fonts/rubik";
-import {
-  Box,
-  HStack,
-  NativeBaseProvider,
-  Pressable,
-  Text,
-  VStack,
-  Image,
-  ScrollView,
-} from "native-base";
+import { Box, Text, VStack } from "native-base";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
-
-import { KeyboardAvoidingView, StatusBar } from "react-native";
-import Header from "../../components/Header/Header";
+import { KeyboardAvoidingView } from "react-native";
 import { StackTypes } from "../../routes/Stack";
-import HeaderHome from "../../components/Header/HeaderHome";
 import theme from "../../theme";
-import { TotalMkt } from "../../components/TotalMkt/TotalMkt";
-import HeaderBag from "../../components/Header/HeaderBag";
 import ButtonFinish from "../../components/Buttons/ButtonFinish/buttonFinish";
-import { Line } from "react-native-svg";
 
 type OrderItem = {
   product_id: string;
@@ -166,9 +151,9 @@ export default function OrderSucessScreen() {
                   SUBTOTAL
                 </Text>
               </Box>
-              {order?.order_items?.map((items) => {
+              {order?.order_items?.map((items, index) => {
                 return (
-                  <Box flexDir="row" width="100%" px={8}>
+                  <Box key={index} flexDir="row" width="100%" px={8}>
                     <Text
                       width={24}
                       fontSize={12}

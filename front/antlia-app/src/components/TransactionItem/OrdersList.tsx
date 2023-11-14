@@ -69,9 +69,9 @@ function OrdersList({ show = false, order_id }: OrdersListProps) {
             SUBTOTAL
           </Text>
         </Box>
-        {order?.order_items?.map((order_item) => {
+        {order?.order_items?.map((order_item, index) => {
           return (
-            <Box flexDir="row" width="100%" px={12}>
+            <Box key={index} flexDir="row" width="100%" px={12}>
               <Text
                 width={24}
                 fontSize={12}

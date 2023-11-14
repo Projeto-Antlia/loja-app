@@ -1,5 +1,4 @@
 import { Box, Button, Text } from "native-base";
-import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Transaction } from "../../@types/invoice";
 import { getCode } from "../../utils/uid-helper";
@@ -43,6 +42,7 @@ function TransactionItem({
               R$ {transaction.price.toFixed(2)}
             </Text>
             <Button
+              onPress={onPress}
               bg="#502275"
               rounded={40}
               w="8"
