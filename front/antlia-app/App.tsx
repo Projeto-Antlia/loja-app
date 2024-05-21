@@ -1,20 +1,20 @@
 import { NativeBaseProvider, StatusBar } from "native-base";
 import { AuthProvider } from "./src/contexts/auth.context";
+import { CartProvider } from "./src/contexts/CartContext";
 import StackComponent from "./src/routes/Stack";
-import {
-  CountdownProvider,
-  useCountDown,
-} from "./src/contexts/CountdownContext";
 
-export default function App() {
+
+const App = () => {
   return (
+    <CartProvider>
     <AuthProvider>
       <StatusBar hidden />
-      <CountdownProvider>
         <NativeBaseProvider>
           <StackComponent />
         </NativeBaseProvider>
-      </CountdownProvider>
     </AuthProvider>
+    </CartProvider>
   );
-}
+};
+
+export default App;
