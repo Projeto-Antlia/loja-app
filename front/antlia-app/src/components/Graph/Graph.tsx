@@ -35,7 +35,7 @@ const Graph: React.FC<GraphProps> = ({ invoices = [] }) => {
     barPercentage: 0.5,
     comVerticalLabels: true,
     barRadius: 7,
-    formatTopBarValue: (value: number) => `R$ ${value}`,
+    formatTopBarValue: (value: number) => `R$ ${value.toFixed(2)}`,
   };
 
   return (

@@ -20,6 +20,7 @@ import { Box, NativeBaseProvider, Text } from "native-base";
 
 const Stack = createNativeStackNavigator();
 
+
 //para tratamento e passagem de dados
 type StackNavigation = {
   Screensaver: undefined;
@@ -39,6 +40,7 @@ export type StackTypes = NativeStackNavigationProp<StackNavigation>;
 
 export default function StackComponent() {
   const { isLoggedIn, isError } = useAuth();
+  
 
   // CRIAR TELA DE ERRO
   if (isError) {

@@ -7,7 +7,7 @@
     "icon": "",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logoAntlia.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,6 +23,14 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "plugins":[
+      [
+        "expo-screen-orientation", 
+        {
+          "initialOrientation":"DEFAULT"
+        }
+      ]
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
     }

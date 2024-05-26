@@ -5,7 +5,7 @@ import { TextInputMask } from "react-native-masked-text";
 import { TextInput } from 'react-native-paper';
 import theme from "../../theme";
 import { useAuth } from "../../contexts/auth.context";
-import { screenType } from "../TotalMkt/TotalMkt";
+import { screenType } from "../TotalMkt/type";
 
 
 interface ModalAuthProps {

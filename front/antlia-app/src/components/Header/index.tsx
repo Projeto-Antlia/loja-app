@@ -1,8 +1,35 @@
-import React, { useMemo } from "react";
-import { Box, HStack, Image, Pressable, Text, VStack } from "native-base";
-import { useNavigation, useNavigationState } from "@react-navigation/native";
+import { Box,Text } from "native-base";
+import { useNavigationState } from "@react-navigation/native";
 import { useAuth } from "../../contexts/auth.context";
-import { Button, ImageSourcePropType } from "react-native";
+import {HomeButton, BackButton, LogOutButton} from "./Button"
+
+const viewName = {
+  "Home":{
+    title: "BEM-VINDO",
+  },
+  "MarketScreen":{
+    title: "MENU",
+    left: () => <HomeButton/>
+  },
+  "CartScreen":{
+    title: "CARRINHO",
+    left: () => <BackButton/>
+  },
+  "PrcScreen":{
+    title: "MINHAS DESPESAS",
+    left: () => <BackButton/>
+  },
+  "PurchasesDetail":{
+    title: "FATURA DETALHADA",
+    left: () => <BackButton/>
+  },
+  "default": (screenName:string) => ({
+    title: screenName,
+    left: () => <BackButton/>
+  })
+
+}
+
 
 export default function HeaderHome() {
   const { logout } = useAuth();
@@ -10,33 +37,10 @@ export default function HeaderHome() {
     (state) => state.routes[state.index].name
   );
 
-  console.log(screenName);
 
-  const headerProps = useMemo(() => {
-    if (screenName === "Home") {
-      return {
-        textButton: "Home",
-        imageButton: require("../../assets/home.png"),
-        headerInformationName: "BEM-VINDO",
-      };
-    }
 
-    if (screenName === "Home") {
-      return {
-        textButton: "Home",
-        imageButton: require("../../assets/home.png"),
-        headerInformationName: "BEM-VINDO",
-      };
-    }
-
-    if (screenName !== "Home" && "MarketScreen") {
-      return {
-        textButton: "Home",
-        imageButton: require("../../assets/home.png"),
-        headerInformationName: "BEM-VINDO",
-      };
-    }
-  }, [screenName]);
+  
+const options = viewName[screenName] || viewName.default(screenName);
 
   return (
     <Box
@@ -50,59 +54,24 @@ export default function HeaderHome() {
       bg="#ffffff"
     >
       <Box>
-        {screenName !== "Home" && (
-          <ButtonCustom
-            onPress={logout}
-            text={headerProps?.textButton || ""}
-            source={headerProps?.imageButton}
-          />
-        )}
+      {options.left && options.left()}
       </Box>
 
       <Box>
-        {screenName !== "Home" && (
           <Text fontSize="15" fontFamily="Rubik_600SemiBold">
-            {"teste"}
+            {options.title}
           </Text>
-        )}
+          <Text fontSize="15" fontFamily="Rubik_600SemiBold">
+            state
+          </Text>
+          
       </Box>
 
       <Box>
-        <ButtonCustom
-          onPress={logout}
-          text="Sair"
-          source={require("../../assets/sair.png")}
-        />
+      <LogOutButton />
       </Box>
     </Box>
   );
 }
 
-interface ButtonProps {
-  onPress?: () => void;
-  text: string;
-  source?: ImageSourcePropType;
-}
-const ButtonCustom = ({ onPress, text, source, ...props }: ButtonProps) => (
-  <Pressable
-    bg="#ebebeb"
-    borderRadius={10}
-    onPress={onPress}
-    //style={{ marginLeft: "auto" }}
-  >
-    <Box alignItems={"center"} py={2} w={24}>
-      <Box h={"10"} w={"10"}>
-        <Image
-          style={{ height: "100%", width: "100%" }}
-          source={source}
-          {...props}
-          alt=""
-        />
-      </Box>
 
-      <Text fontSize="15" fontFamily="Rubik_600SemiBold">
-        {text}
-      </Text>
-    </Box>
-  </Pressable>
-);

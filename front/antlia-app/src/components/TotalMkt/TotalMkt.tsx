@@ -1,19 +1,12 @@
-import { HStack, KeyboardAvoidingView, NativeBaseProvider, Text, Image, Pressable, Box, Button, FormControl, Input, VStack } from "native-base";
-import { Alert, Modal, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import { NavigationProp } from '@react-navigation/native';
+import { HStack, KeyboardAvoidingView, NativeBaseProvider, Text,  Pressable, Box } from "native-base";
+import React, { useState } from "react";
 import theme from "../../theme";
-import { StackTypes } from '../../routes/Stack';
 import { ModalAuth } from "../ModalAuth/ModalAuth";
+import { screenType } from "./type";
 
 interface TotalMktProps{
     subtotal:number;
     onPlaceOrder: () => void;
-}
-
-export enum screenType {
-    LOGIN = "login",
-    CART = "cart"
 }
 
 export const TotalMkt: React.FC<TotalMktProps> = ({subtotal, onPlaceOrder})=>{

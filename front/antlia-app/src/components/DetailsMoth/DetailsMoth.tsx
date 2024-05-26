@@ -5,19 +5,13 @@ import {
   useFonts,
 } from "@expo-google-fonts/rubik";
 import {
-  Badge,
   Box,
   HStack,
-  Image,
   Pressable,
   Text,
   VStack,
 } from "native-base";
-import { BarChart } from "react-native-chart-kit";
 import theme from "../../theme/index";
-import { Dimensions } from "react-native";
-import Graph from "../Graph/Graph";
-import { useEffect } from "react";
 import { getDate, getMonth } from "../../utils/date-helpers";
 import { useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes/Stack";

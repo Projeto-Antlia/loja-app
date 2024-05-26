@@ -10,14 +10,5 @@ const apiService = axios.create({
   timeout: 10000, 
 });
 
-import HttpErrorsService from "../service/errors/errors.service";
-
-apiService.interceptors.response.use(
-  (res) => res,
-  (err) => {
-    HttpErrorsService(err.response);
-    return Promise.reject(err);
-  }
-);
 
 export default apiService;

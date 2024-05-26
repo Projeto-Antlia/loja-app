@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import {
   Box,
   HStack,
-  KeyboardAvoidingView,
   Text,
   Image,
-  Divider,
   Pressable,
   Button,
 } from "native-base";
@@ -67,13 +65,8 @@ export const ItemCart: React.FC<IntConfirmationProps> = ({
   const removeItem = () => {
     cartDispatch({ type: "REMOVE_ITEM", payload: itemId });
     setQuantity(0);
-    console.log("removeItem", quantity);
     onValueRemove();
   };
-
-  useEffect(() => {
-    console.log("typeOf", cartState);
-  }, [cartState, quantity]);
 
   return (
     <HStack

@@ -19,6 +19,7 @@ import {
   TransactionMap,
   mapTransactionsByMonth,
 } from "../../utils/transaction";
+import theme from "../../theme";
 
 type RouteParam = {
   invoice: Invoice;
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Rubik_600SemiBold",
+    fontSize: theme.size.font8
   },
   month: {
     fontFamily: "Rubik_700Bold",

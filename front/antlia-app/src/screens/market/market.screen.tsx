@@ -7,20 +7,11 @@ import Container from "../../components/Container/Container";
 import HeaderHome from "../../components/Header";
 import Products from "../../components/Products/products";
 import { StackTypes } from "../../routes/Stack";
-import { useCart } from "../../contexts/CartContext";
 
 type Category = {
   id: string;
   name: string;
-  image: string;
-};
-
-type Product = {
-  id: string;
-  category_id: string;
-  name: string;
-  image: string;
-  valor: string;
+  image_id: string;
 };
 
 export default function MktScreen() {
@@ -28,7 +19,6 @@ export default function MktScreen() {
     Category | undefined
   >(undefined);
   const navigation = useNavigation<StackTypes>();
-  const cart = useCart();
   const styles = {
     container: {
       flex: 1,

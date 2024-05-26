@@ -58,14 +58,9 @@ export const CardItem: React.FC<CardItemProps> = ({
   const valorText = isItemInCart ? "Adicionado" : `R$: ${price}`;
 
   const addItemToCart = (item: CartItem) => {
-    console.log(cartState);
     cartDispatch({ type: "ADD_ITEM", payload: item });
     setModalVisible(false);
   };
-
-  useEffect(() => {
-    console.log("typeOf", typeof cartState);
-  }, [cartState, quantity]);
 
   return (
     <NativeBaseProvider>
